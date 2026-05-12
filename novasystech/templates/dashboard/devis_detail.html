@@ -1,0 +1,67 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}Devis #{{ dv.pk }}{% endblock %}
+{% block page_title %}Devis — {{ dv.nom_complet }}{% endblock %}
+{% block breadcrumb %}<a href="{% url 'dashboard_home' %}">Accueil</a> / <a href="{% url 'devis_list' %}">Devis</a> / #{{ dv.pk }}{% endblock %}
+{% block topbar_actions %}
+<a href="tel:{{ dv.telephone }}" class="topbar-btn primary"><i class="fas fa-phone"></i> Appeler</a>
+<a href="mailto:{{ dv.email }}" class="topbar-btn ghost"><i class="fas fa-envelope"></i> Email</a>
+<a href="https://wa.me/{{ dv.telephone|cut:' '|cut:'+'|cut:'-' }}" class="topbar-btn ghost" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+{% endblock %}
+{% block content %}
+<div class="grid-3">
+  <div style="display:flex;flex-direction:column;gap:20px;">
+    <div class="card">
+      <div class="card-header"><h3><i class="fas fa-user" style="color:var(--orange);margin-right:8px;"></i>Informations client</h3></div>
+      <div style="padding:20px;" class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Nom complet</div><div class="detail-value">{{ dv.nom_complet }}</div></div>
+        <div class="detail-item"><div class="detail-label">Téléphone</div><div class="detail-value"><a href="tel:{{ dv.telephone }}" style="color:var(--blue);">{{ dv.telephone }}</a></div></div>
+        <div class="detail-item detail-full"><div class="detail-label">Email</div><div class="detail-value"><a href="mailto:{{ dv.email }}" style="color:var(--blue);">{{ dv.email }}</a></div></div>
+        {% if dv.entreprise %}<div class="detail-item detail-full"><div class="detail-label">Entreprise</div><div class="detail-value">{{ dv.entreprise }}</div></div>{% endif %}
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h3><i class="fas fa-project-diagram" style="color:var(--orange);margin-right:8px;"></i>Détails du projet</h3></div>
+      <div style="padding:20px;" class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Service</div><div class="detail-value">{{ dv.get_service_display }}</div></div>
+        <div class="detail-item"><div class="detail-label">Budget</div><div class="detail-value">{{ dv.get_budget_display }}</div></div>
+        <div class="detail-item"><div class="detail-label">Délai souhaité</div><div class="detail-value">{{ dv.get_delai_display }}</div></div>
+        <div class="detail-item"><div class="detail-label">Reçu le</div><div class="detail-value">{{ dv.created_at|date:"d/m/Y à H:i" }}</div></div>
+        <div class="detail-item detail-full" style="background:var(--orange-light);border-left:3px solid var(--orange);">
+          <div class="detail-label">Description du besoin</div>
+          <div class="detail-value" style="white-space:pre-wrap;margin-top:6px;line-height:1.7;">{{ dv.description }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="card">
+      <div class="card-header"><h3><i class="fas fa-tasks" style="color:var(--orange);margin-right:8px;"></i>Gestion du statut</h3></div>
+      <div style="padding:24px;">
+        <div style="margin-bottom:16px;">
+          <span class="badge {{ dv.statut }}" style="font-size:.85rem;padding:6px 16px;">{{ dv.get_statut_display }}</span>
+        </div>
+        <form method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <label class="form-label">Changer le statut</label>
+            <select name="statut" class="form-ctrl">
+              <option value="nouveau" {% if dv.statut == 'nouveau' %}selected{% endif %}>🟠 Nouveau</option>
+              <option value="en_cours" {% if dv.statut == 'en_cours' %}selected{% endif %}>🔵 En cours</option>
+              <option value="traite" {% if dv.statut == 'traite' %}selected{% endif %}>🟢 Traité</option>
+              <option value="archive" {% if dv.statut == 'archive' %}selected{% endif %}>⚫ Archivé</option>
+            </select>
+          </div>
+          <button type="submit" class="topbar-btn primary" style="width:100%;justify-content:center;">
+            <i class="fas fa-save"></i> Enregistrer
+          </button>
+        </form>
+        <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--gray-mid);">
+          <a href="{% url 'devis_list' %}" class="topbar-btn ghost" style="width:100%;justify-content:center;">
+            <i class="fas fa-arrow-left"></i> Retour à la liste
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

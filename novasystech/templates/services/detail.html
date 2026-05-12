@@ -1,0 +1,179 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}{{ service.meta_title|default:service.nom }} — NovaSysTech Togo{% endblock %}
+{% block meta_description %}{{ service.meta_description|default:service.description_courte }}{% endblock %}
+
+{% block content %}
+<!-- HERO -->
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="{% url 'index' %}">Accueil</a>
+      <span class="sep">/</span>
+      <a href="{% url 'services' %}">Services</a>
+      <span class="sep">/</span>
+      <span>{{ service.nom }}</span>
+    </div>
+    <div class="page-hero-inner" style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;">
+      <div>
+        <div class="section-tag">Service NST</div>
+        <h1 style="margin-bottom:16px;">{{ service.nom }}</h1>
+        <p>{{ service.description_courte }}</p>
+        <div style="display:flex;gap:12px;margin-top:28px;flex-wrap:wrap;">
+          <a href="{% url 'devis' %}" class="btn btn-primary btn-lg">
+            <i class="fas fa-paper-plane"></i> Demander un devis
+          </a>
+          <a href="https://wa.me/{{ WHATSAPP_NUMBER }}?text=Bonjour%20NST%2C%20je%20suis%20intéressé%20par%20votre%20service%20{{ service.nom|urlencode }}..."
+             class="btn btn-outline-dark" target="_blank">
+            <i class="fab fa-whatsapp"></i> WhatsApp
+          </a>
+        </div>
+      </div>
+      <div>
+        {% if service.slug == 'formation-certification' %}
+        <img src="{% static 'images/formation-cybersecurite.jpg' %}" alt="{{ service.nom }}"
+             style="width:100%;height:380px;object-fit:cover;border-radius:var(--radius-xl);box-shadow:var(--shadow-lg);">
+        {% elif service.image_hero %}
+        <img src="{{ service.image_hero.url }}" alt="{{ service.nom }}"
+             style="width:100%;height:380px;object-fit:cover;border-radius:var(--radius-xl);box-shadow:var(--shadow-lg);">
+        {% else %}
+        <div style="width:100%;height:380px;background:linear-gradient(135deg,var(--blue),var(--blue-mid));border-radius:var(--radius-xl);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:5rem;color:white;">
+          {% if service.icone == 'wrench' %}🔧{% elif service.icone == 'video' %}📹{% elif service.icone == 'wifi' %}📡{% elif service.icone == 'shield' %}🔒{% elif service.icone == 'cloud' %}☁️{% elif service.icone == 'graduation-cap' %}🎓{% else %}⚙️{% endif %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTENT -->
+<section class="section">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:2fr 1fr;gap:64px;align-items:start;">
+      <div>
+        {% if service.description_longue %}
+        <div class="section-tag">Présentation</div>
+        <h2 style="margin-bottom:20px;">Ce service en détail</h2>
+        <div style="color:var(--text-light);line-height:1.9;font-size:1.02rem;margin-bottom:40px;">
+          {{ service.description_longue|linebreaks }}
+        </div>
+        {% endif %}
+
+        {% if service.get_features_list %}
+        <h3 style="color:var(--blue);margin-bottom:20px;"><i class="fas fa-check-circle" style="color:var(--orange);margin-right:8px;"></i>Nos prestations incluses</h3>
+        <ul class="feature-list" style="margin-bottom:40px;">
+          {% for feat in service.get_features_list %}
+          <li class="feature-item">{{ feat }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if service.get_avantages_list %}
+        <h3 style="color:var(--blue);margin-bottom:20px;"><i class="fas fa-star" style="color:var(--orange);margin-right:8px;"></i>Pourquoi choisir NST ?</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:32px;">
+          {% for av in service.get_avantages_list %}
+          <div style="background:var(--gray-light);border-radius:var(--radius-sm);padding:14px 18px;display:flex;gap:10px;align-items:flex-start;border-left:3px solid var(--orange);">
+            <span style="color:var(--orange);font-weight:700;flex-shrink:0;">✓</span>
+            <span style="font-size:.88rem;color:var(--text-light);">{{ av }}</span>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if service.slug == 'formation-certification' %}
+        <!-- Formations spéciales avec images réelles -->
+        <h3 style="color:var(--blue);margin-bottom:24px;"><i class="fas fa-graduation-cap" style="color:var(--orange);margin-right:8px;"></i>Nos formations disponibles</h3>
+        <div class="formations-grid">
+          {% for f in formations %}
+          <div class="formation-card">
+            <div class="formation-card-img-wrap">
+              <img src="{{ f.image }}" alt="{{ f.titre }}" class="formation-card-img">
+              <span class="formation-card-badge">100% Pratique</span>
+            </div>
+            <div class="formation-card-body">
+              <h3>{{ f.titre }}</h3>
+              <ul style="list-style:none;margin-bottom:14px;">
+                {% for item in f.modules %}
+                <li style="font-size:.85rem;color:var(--text-light);padding:3px 0;display:flex;gap:6px;align-items:center;">
+                  <span style="color:var(--orange);font-weight:700;">›</span> {{ item }}
+                </li>
+                {% endfor %}
+              </ul>
+              <div class="formation-meta">
+                <div class="formation-meta-item"><i class="fas fa-calendar"></i> Début : {{ f.debut }}</div>
+                <div class="formation-meta-item"><i class="fas fa-clock"></i> {{ f.duree }}</div>
+                <div class="formation-meta-item"><i class="fas fa-certificate"></i> Certificat inclus</div>
+              </div>
+              <div class="formation-price-row">
+                <div class="formation-price">
+                  <span class="inscription">Inscription : <strong style="color:var(--orange);">{{ f.inscription }}</strong></span>
+                  <span class="tarif">{{ f.tarif }}</span>
+                  <span class="tarif-sub">Tarif formation complète</span>
+                </div>
+                <a href="{% url 'devis' %}?service=formation" class="btn btn-primary btn-sm">
+                  <i class="fas fa-paper-plane"></i> S'inscrire
+                </a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- SIDEBAR -->
+      <div style="position:sticky;top:100px;">
+        <div style="background:var(--blue);border-radius:var(--radius-md);padding:28px;color:var(--white);margin-bottom:20px;">
+          <h4 style="font-family:var(--font-display);color:var(--white);margin-bottom:8px;font-size:1.1rem;">
+            <i class="fas fa-headset" style="color:var(--orange);margin-right:8px;"></i>Intéressé ?
+          </h4>
+          <p style="font-size:.88rem;color:rgba(255,255,255,.75);margin-bottom:20px;">Devis gratuit et personnalisé. Réponse sous 24h garantie.</p>
+          <a href="{% url 'devis' %}" class="btn btn-primary" style="width:100%;justify-content:center;margin-bottom:10px;">
+            <i class="fas fa-paper-plane"></i> Demander un devis
+          </a>
+          <a href="https://wa.me/{{ WHATSAPP_NUMBER }}" class="btn" target="_blank"
+             style="width:100%;justify-content:center;background:rgba(255,255,255,.1);color:var(--white);border:1px solid rgba(255,255,255,.2);">
+            <i class="fab fa-whatsapp"></i> WhatsApp direct
+          </a>
+          <div style="margin-top:20px;padding-top:18px;border-top:1px solid rgba(255,255,255,.1);">
+            <div style="font-size:.8rem;color:rgba(255,255,255,.6);margin-bottom:8px;">📞 Appel direct</div>
+            <a href="tel:+22879928181" style="color:var(--orange);font-weight:700;font-size:1rem;display:block;">{{ PHONE_1 }}</a>
+            <a href="tel:+22870307968" style="color:rgba(255,255,255,.7);font-size:.88rem;display:block;margin-top:4px;">{{ PHONE_2 }}</a>
+          </div>
+        </div>
+
+        <!-- Autres services -->
+        <div style="background:var(--white);border:1px solid var(--gray-mid);border-radius:var(--radius-md);padding:20px;">
+          <h4 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-dark);margin-bottom:14px;font-family:var(--font-display);">
+            Autres services
+          </h4>
+          {% for s in autres %}
+          <a href="{{ s.get_absolute_url }}" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius-sm);margin-bottom:6px;transition:var(--transition);border:1px solid transparent;"
+             onmouseover="this.style.background='var(--orange-light)';this.style.borderColor='var(--orange)'"
+             onmouseout="this.style.background='';this.style.borderColor='transparent'">
+            <span style="font-size:1.1rem;">
+              {% if s.icone == 'wrench' %}🔧{% elif s.icone == 'video' %}📹{% elif s.icone == 'wifi' %}📡{% elif s.icone == 'shield' %}🔒{% elif s.icone == 'cloud' %}☁️{% elif s.icone == 'graduation-cap' %}🎓{% else %}⚙️{% endif %}
+            </span>
+            <span style="font-size:.88rem;color:var(--text);">{{ s.nom }}</span>
+            <span style="margin-left:auto;color:var(--orange);font-size:.8rem;">→</span>
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-sm">
+  <div class="container">
+    <div class="cta-section" data-aos>
+      <h2>Prêt à démarrer avec ce service ?</h2>
+      <p>Contactez nos experts et obtenez une analyse gratuite de vos besoins sous 24h. Sans engagement.</p>
+      <div class="cta-actions">
+        <a href="{% url 'devis' %}" class="btn btn-primary btn-lg">Demander un devis gratuit</a>
+        <a href="{% url 'contact' %}" class="btn btn-outline btn-lg">Nous contacter</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}Témoignages{% endblock %}
+{% block page_title %}Témoignages clients{% endblock %}
+{% block breadcrumb %}<a href="{% url 'dashboard_home' %}">Accueil</a> / Témoignages{% endblock %}
+{% block topbar_actions %}
+<a href="/admin/core/temoignage/add/" class="topbar-btn primary" target="_blank"><i class="fas fa-plus"></i> Ajouter un témoignage</a>
+{% endblock %}
+{% block content %}
+<div class="card">
+  <div class="card-header"><h3><i class="fas fa-star" style="color:var(--orange);margin-right:8px;"></i>{{ temoignages.count }} témoignage{{ temoignages.count|pluralize }}</h3></div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Client</th><th>Poste / Entreprise</th><th>Note</th><th>Extrait</th><th>Statut</th><th>Actions</th></tr></thead>
+      <tbody>
+        {% for t in temoignages %}
+        <tr>
+          <td style="font-weight:600;">{{ t.nom }}</td>
+          <td style="font-size:.82rem;color:var(--text-light);">{{ t.poste }}{% if t.entreprise %} — {{ t.entreprise }}{% endif %}</td>
+          <td>{% for i in "12345" %}{% if forloop.counter <= t.note %}⭐{% endif %}{% endfor %}</td>
+          <td style="font-size:.82rem;max-width:220px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text-light);">"{{ t.texte|truncatewords:10 }}"</td>
+          <td>{% if t.est_publie %}<span class="badge green">Publié</span>{% else %}<span class="badge gray">Masqué</span>{% endif %}</td>
+          <td><a href="/admin/core/temoignage/{{ t.pk }}/change/" class="action-btn edit" target="_blank"><i class="fas fa-edit"></i></a></td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6"><div class="empty-state"><i class="fas fa-star"></i><p>Aucun témoignage</p></div></td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

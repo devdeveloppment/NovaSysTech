@@ -1,0 +1,108 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}Demandes de devis{% endblock %}
+{% block page_title %}Demandes de devis{% endblock %}
+{% block breadcrumb %}<a href="{% url 'dashboard_home' %}">Accueil</a> / Devis{% endblock %}
+
+{% block topbar_actions %}
+<a href="{% url 'devis_export' %}" class="topbar-btn ghost"><i class="fas fa-download"></i> Export CSV</a>
+{% endblock %}
+
+{% block content %}
+<!-- MINI STATS -->
+<div class="stats-row" style="grid-template-columns:repeat(4,1fr);margin-bottom:20px;">
+  <div class="stat-card"><div class="stat-icon orange"><i class="fas fa-inbox"></i></div><div><div class="stat-num">{{ total }}</div><div class="stat-label">Total affiché</div></div></div>
+  <div class="stat-card"><div class="stat-icon orange"><i class="fas fa-star"></i></div><div><div class="stat-num">{{ devis_par_statut.nouveau }}</div><div class="stat-label">Nouveaux</div></div></div>
+  <div class="stat-card"><div class="stat-icon blue"><i class="fas fa-spinner"></i></div><div><div class="stat-num">{{ devis_par_statut.en_cours }}</div><div class="stat-label">En cours</div></div></div>
+  <div class="stat-card"><div class="stat-icon green"><i class="fas fa-check-circle"></i></div><div><div class="stat-num">{{ devis_par_statut.traite }}</div><div class="stat-label">Traités</div></div></div>
+</div>
+
+<!-- FILTERS -->
+<form method="get" class="filters-bar">
+  <input type="text" name="q" class="filter-input" placeholder="🔍 Rechercher client, email, tél..." value="{{ search }}" style="flex:1;min-width:200px;">
+  <select name="statut" class="filter-select">
+    <option value="">Tous les statuts</option>
+    {% for key, label in statuts %}
+    <option value="{{ key }}" {% if statut_filter == key %}selected{% endif %}>{{ label }}</option>
+    {% endfor %}
+  </select>
+  <select name="service" class="filter-select">
+    <option value="">Tous les services</option>
+    {% for key, label in services %}
+    <option value="{{ key }}" {% if service_filter == key %}selected{% endif %}>{{ label }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit" class="topbar-btn primary"><i class="fas fa-filter"></i> Filtrer</button>
+  <a href="{% url 'devis_list' %}" class="topbar-btn ghost">Réinitialiser</a>
+</form>
+
+<div class="card">
+  <div class="card-header">
+    <h3><i class="fas fa-file-invoice" style="color:var(--orange);margin-right:8px;"></i>{{ total }} demande{{ total|pluralize }} de devis</h3>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Client</th><th>Téléphone</th><th>Service</th>
+          <th>Budget</th><th>Statut</th><th>Date</th><th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for dv in devis_list %}
+        <tr>
+          <td>
+            <div style="font-weight:600;">{{ dv.nom_complet }}</div>
+            <div style="font-size:.75rem;color:var(--text-light);">{{ dv.email }}</div>
+            {% if dv.entreprise %}<div style="font-size:.72rem;color:var(--text-light);">{{ dv.entreprise }}</div>{% endif %}
+          </td>
+          <td><a href="tel:{{ dv.telephone }}" style="color:var(--blue);font-weight:500;">{{ dv.telephone }}</a></td>
+          <td>
+            {% with s=dv.service %}
+            <span class="badge {% if s == 'maintenance' %}orange{% elif s == 'cctv' %}blue{% elif s == 'reseaux' %}green{% elif s == 'alarmes' %}red{% elif s == 'cloud_ia' %}purple{% else %}teal{% endif %}">
+              {{ dv.get_service_display }}
+            </span>
+            {% endwith %}
+          </td>
+          <td style="font-size:.82rem;">{{ dv.get_budget_display }}</td>
+          <td>
+            <select class="filter-select statut-select" data-id="{{ dv.pk }}" style="padding:4px 8px;font-size:.78rem;border-radius:6px;">
+              <option value="nouveau" {% if dv.statut == 'nouveau' %}selected{% endif %}>🟠 Nouveau</option>
+              <option value="en_cours" {% if dv.statut == 'en_cours' %}selected{% endif %}>🔵 En cours</option>
+              <option value="traite" {% if dv.statut == 'traite' %}selected{% endif %}>🟢 Traité</option>
+              <option value="archive" {% if dv.statut == 'archive' %}selected{% endif %}>⚫ Archivé</option>
+            </select>
+          </td>
+          <td style="font-size:.78rem;color:var(--text-light);">{{ dv.created_at|date:"d/m/Y H:i" }}</td>
+          <td><a href="{% url 'devis_detail' dv.pk %}" class="action-btn view"><i class="fas fa-eye"></i> Voir</a></td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="7"><div class="empty-state"><i class="fas fa-inbox"></i><p>Aucune demande de devis{% if search %} pour "{{ search }}"{% endif %}</p></div></td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// AJAX update statut
+document.querySelectorAll('.statut-select').forEach(sel => {
+  sel.addEventListener('change', async function() {
+    const id = this.dataset.id;
+    const statut = this.value;
+    const fd = new FormData();
+    fd.append('statut', statut);
+    fd.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+    try {
+      const resp = await fetch(`/dashboard/devis/${id}/statut/`, { method: 'POST', body: fd });
+      const data = await resp.json();
+      if (data.success) {
+        this.style.borderColor = 'var(--success)';
+        setTimeout(() => this.style.borderColor = '', 1500);
+      }
+    } catch(e) { console.error(e); }
+  });
+});
+</script>
+{% endblock %}

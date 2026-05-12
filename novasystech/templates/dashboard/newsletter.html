@@ -1,0 +1,30 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}Newsletter{% endblock %}
+{% block page_title %}Newsletter{% endblock %}
+{% block breadcrumb %}<a href="{% url 'dashboard_home' %}">Accueil</a> / Newsletter{% endblock %}
+{% block content %}
+<div class="stats-row" style="grid-template-columns:repeat(3,1fr);margin-bottom:20px;">
+  <div class="stat-card"><div class="stat-icon green"><i class="fas fa-users"></i></div><div><div class="stat-num">{{ total }}</div><div class="stat-label">Total abonnés</div></div></div>
+  <div class="stat-card"><div class="stat-icon orange"><i class="fas fa-check-circle"></i></div><div><div class="stat-num">{{ actifs }}</div><div class="stat-label">Abonnés actifs</div></div></div>
+  <div class="stat-card"><div class="stat-icon red"><i class="fas fa-times-circle"></i></div><div><div class="stat-num">{{ total|add:"-"|add:actifs|default:0 }}</div><div class="stat-label">Désabonnés</div></div></div>
+</div>
+<div class="card">
+  <div class="card-header"><h3><i class="fas fa-paper-plane" style="color:var(--orange);margin-right:8px;"></i>{{ total }} abonné{{ total|pluralize }}</h3></div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Email</th><th>Statut</th><th>Date d'inscription</th></tr></thead>
+      <tbody>
+        {% for a in abonnes %}
+        <tr>
+          <td style="font-weight:500;">{{ a.email }}</td>
+          <td>{% if a.actif %}<span class="badge green">Actif</span>{% else %}<span class="badge gray">Désabonné</span>{% endif %}</td>
+          <td style="font-size:.78rem;color:var(--text-light);">{{ a.created_at|date:"d/m/Y H:i" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="3"><div class="empty-state"><i class="fas fa-paper-plane"></i><p>Aucun abonné pour le moment</p></div></td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

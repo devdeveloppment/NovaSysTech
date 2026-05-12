@@ -1,0 +1,24 @@
+{% extends 'base/base.html' %}
+{% block title %}Mentions Légales & Confidentialité — NovaSysTech{% endblock %}
+{% block content %}
+<section class="page-hero" style="padding-bottom:40px;">
+  <div class="container page-hero-inner">
+    <h1>Mentions Légales<br><span class="text-blue">& Confidentialité</span></h1>
+    <p>Informations légales relatives à NovaSysTech (NST) et à l'utilisation de ce site web.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container" style="max-width:800px;">
+    <div style="background:var(--white);border:1px solid var(--gray-mid);border-radius:var(--radius-lg);padding:48px;">
+      <h2 style="color:var(--blue);margin-bottom:16px;">1. Éditeur du site</h2>
+      <p style="color:var(--text-light);line-height:1.8;margin-bottom:32px;"><strong>NovaSysTech (NST)</strong><br>Agoè Assiyéyé, derrière Station Cap Togo, Lomé, Togo<br>Tél : {{ PHONE_1 }}<br>Email : {{ EMAIL_CONTACT }}<br>Site : Novasystech.net</p>
+      <h2 style="color:var(--blue);margin-bottom:16px;">2. Hébergement</h2>
+      <p style="color:var(--text-light);line-height:1.8;margin-bottom:32px;">Ce site est hébergé sur un serveur VPS sécurisé. Toutes les données sont protégées par un certificat SSL/HTTPS.</p>
+      <h2 style="color:var(--blue);margin-bottom:16px;">3. Protection des données</h2>
+      <p style="color:var(--text-light);line-height:1.8;margin-bottom:32px;">Les informations recueillies via les formulaires (devis, contact) sont utilisées uniquement pour traiter vos demandes. Elles ne sont ni vendues, ni transmises à des tiers. Vous pouvez exercer votre droit d'accès, de modification ou de suppression en contactant <a href="mailto:{{ EMAIL_CONTACT }}" style="color:var(--orange);">{{ EMAIL_CONTACT }}</a>.</p>
+      <h2 style="color:var(--blue);margin-bottom:16px;">4. Cookies</h2>
+      <p style="color:var(--text-light);line-height:1.8;">Ce site utilise Google reCAPTCHA pour la protection contre le spam et peut utiliser des cookies techniques nécessaires au bon fonctionnement. Aucun cookie publicitaire n'est utilisé.</p>
+    </div>
+  </div>
+</section>
+{% endblock %}

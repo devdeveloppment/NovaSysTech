@@ -1,0 +1,113 @@
+{% extends 'base/base.html' %}
+{% block title %}Nos Expertises IT au Togo — NovaSysTech{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container page-hero-inner">
+    <div class="section-tag">Services Hub</div>
+    <h1>Nos Expertises IT<br><span class="text-blue">au Togo.</span></h1>
+    <p>Propulsez votre infrastructure vers l'avenir avec les solutions technologiques de pointe de NovaSysTech. De la sécurité physique à l'intelligence artificielle, nous bâtissons votre résilience numérique.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    {% for service in services %}
+    {% if forloop.first %}
+    <!-- SERVICE VEDETTE -->
+    <div class="service-featured" data-aos>
+      <div class="service-featured-content">
+        <div class="tag">⚙️ Service Principal</div>
+        <h3>{{ service.nom }}</h3>
+        <p>{{ service.description_courte }}</p>
+        {% if service.features %}
+        <ul class="feature-list">
+          {% for feat in service.get_features_list %}
+          <li class="feature-item">{{ feat }}</li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <ul class="feature-list">
+          <li class="feature-item">Audit de parc informatique complet</li>
+          <li class="feature-item">Support 24/7 et intervention sur site</li>
+          <li class="feature-item">Optimisation des performances système</li>
+        </ul>
+        {% endif %}
+        <a href="{{ service.get_absolute_url }}" class="btn btn-primary">Demander un devis</a>
+      </div>
+      <div class="service-featured-image">
+        {% if service.image_hero %}
+        <img src="{{ service.image_hero.url }}" alt="{{ service.nom }}">
+        {% else %}
+        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80" alt="{{ service.nom }}">
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+
+    <!-- GRILLE PETITS SERVICES -->
+    <div class="services-small-grid" style="margin-top:24px;">
+      {% for service in services %}
+      {% if not forloop.first %}
+      <div class="service-small-card" data-aos data-aos-delay="{{ forloop.counter0 }}00">
+        <div class="icon">
+          {% if service.icone == 'video' %}<i class="fas fa-video"></i>
+          {% elif service.icone == 'wifi' %}<i class="fas fa-wifi"></i>
+          {% elif service.icone == 'shield' %}<i class="fas fa-shield-alt"></i>
+          {% elif service.icone == 'cloud' %}<i class="fas fa-cloud"></i>
+          {% elif service.icone == 'graduation-cap' %}<i class="fas fa-graduation-cap"></i>
+          {% else %}<i class="fas fa-cog"></i>{% endif %}
+        </div>
+        <h3>{{ service.nom }}</h3>
+        <p>{{ service.description_courte }}</p>
+        <a href="{{ service.get_absolute_url }}" class="link">Demander un devis <i class="fas fa-arrow-right"></i></a>
+      </div>
+      {% endif %}
+      {% empty %}
+      <!-- Fallback -->
+      {% for item in "23456" %}
+      <div class="service-small-card" data-aos>
+        <div class="icon"><i class="fas fa-wifi"></i></div>
+        <h3>Service {{ forloop.counter|add:1 }}</h3>
+        <p>Configurez vos données depuis l'admin Django.</p>
+        <a href="{% url 'services' %}" class="link">En savoir plus <i class="fas fa-arrow-right"></i></a>
+      </div>
+      {% endfor %}
+      {% endfor %}
+    </div>
+
+    <!-- FORMATION BLOCK -->
+    <div class="formation-block" data-aos>
+      <div>
+        <div class="formation-tag">Programme Académique</div>
+        <h3>Formation & Certification</h3>
+        <p>Développez les compétences de vos équipes avec nos cursus certifiants en cybersécurité, administration système et réseaux.</p>
+        <div class="formation-badges">
+          <span class="formation-badge">Cisco & Microsoft</span>
+          <span class="formation-badge">Cyber-hygiène</span>
+          <span class="formation-badge">AWS & Azure</span>
+          <span class="formation-badge">MikroTik</span>
+        </div>
+      </div>
+      <div>
+        <a href="{% url 'service_detail' 'formation-certification' %}" class="btn btn-primary btn-lg">Voir le catalogue</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section-sm">
+  <div class="container">
+    <div style="text-align:center;" data-aos>
+      <h2>Un projet spécifique en tête ?</h2>
+      <p style="color:var(--gray-dark);max-width:480px;margin:16px auto 32px;">Nos consultants sont à votre disposition pour une étude personnalisée de vos besoins technologiques au Togo et dans la sous-région.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <a href="{% url 'devis' %}" class="btn btn-primary btn-lg">Parler à un expert</a>
+        <a href="#" class="btn btn-outline-dark btn-lg">Télécharger la brochure</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

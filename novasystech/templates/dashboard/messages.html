@@ -1,0 +1,46 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}Messages{% endblock %}
+{% block page_title %}Messages de contact{% endblock %}
+{% block breadcrumb %}<a href="{% url 'dashboard_home' %}">Accueil</a> / Messages{% endblock %}
+{% block content %}
+<form method="get" class="filters-bar">
+  <input type="text" name="q" class="filter-input" placeholder="🔍 Rechercher..." value="{{ search }}" style="flex:1;">
+  <select name="lu" class="filter-select">
+    <option value="">Tous les messages</option>
+    <option value="0" {% if lu_filter == '0' %}selected{% endif %}>Non lus ({{ non_lus }})</option>
+    <option value="1" {% if lu_filter == '1' %}selected{% endif %}>Lus</option>
+  </select>
+  <button type="submit" class="topbar-btn primary"><i class="fas fa-filter"></i> Filtrer</button>
+  <a href="{% url 'messages_list' %}" class="topbar-btn ghost">Tout voir</a>
+</form>
+<div class="card">
+  <div class="card-header"><h3><i class="fas fa-envelope" style="color:var(--orange);margin-right:8px;"></i>{{ messages_list.count }} message{{ messages_list.count|pluralize }}</h3><span style="font-size:.8rem;color:var(--text-light);">{{ non_lus }} non lu{{ non_lus|pluralize }}</span></div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Expéditeur</th><th>Sujet</th><th>Téléphone</th><th>Statut</th><th>Date</th><th>Actions</th></tr></thead>
+      <tbody>
+        {% for msg in messages_list %}
+        <tr style="{% if not msg.lu %}background:#FFFBF7;{% endif %}">
+          <td>
+            <div style="font-weight:{% if not msg.lu %}700{% else %}500{% endif %};">{{ msg.nom }}</div>
+            <div style="font-size:.75rem;color:var(--text-light);">{{ msg.email }}</div>
+          </td>
+          <td style="font-size:.88rem;max-width:240px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ msg.sujet }}</td>
+          <td style="font-size:.82rem;">{{ msg.telephone|default:"—" }}</td>
+          <td>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;">
+              {% if msg.lu %}<span class="badge green">Lu</span>{% else %}<span class="badge orange">● Non lu</span>{% endif %}
+              {% if msg.a_reponse %}<span class="badge blue">✓ Répondu</span>{% endif %}
+            </div>
+          </td>
+          <td style="font-size:.78rem;color:var(--text-light);">{{ msg.created_at|date:"d/m/Y H:i" }}</td>
+          <td><a href="{% url 'message_detail' msg.pk %}" class="action-btn view"><i class="fas fa-eye"></i> Lire</a></td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6"><div class="empty-state"><i class="fas fa-inbox"></i><p>Aucun message</p></div></td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

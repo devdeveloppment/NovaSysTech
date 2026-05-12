@@ -1,0 +1,106 @@
+{% extends 'base/base.html' %}
+{% block title %}Questions Fréquentes — NovaSysTech{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <div class="container page-hero-inner" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;">
+    <div>
+      <div class="section-tag">Centre d'Aide</div>
+      <h1>Questions<br>Fréquentes</h1>
+      <p>Trouvez des réponses rapides à vos interrogations sur nos services informatiques, nos processus de développement et notre support technique à Lomé.</p>
+    </div>
+    <div style="display:flex;justify-content:flex-end;">
+      <img src="https://illustrations.popsy.co/amber/man-with-a-laptop.svg" alt="Support NST" style="max-height:280px;" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="faq-layout">
+      <div class="faq-sidebar">
+        <div class="faq-nav-item active" data-target="faq-general"><span class="icon">ℹ️</span> Général</div>
+        <div class="faq-nav-item" data-target="faq-services"><span class="icon">⚙️</span> Services</div>
+        <div class="faq-nav-item" data-target="faq-devis"><span class="icon">💰</span> Devis & Tarifs</div>
+      </div>
+
+      <div>
+        <!-- GENERAL -->
+        <div id="faq-general">
+          <div class="faq-section-title"><div class="line"></div><h3>Général</h3></div>
+          {% for faq in faqs_general %}
+          <div class="accordion-item">
+            <div class="accordion-header"><span>{{ faq.question }}</span><span class="accordion-icon">▼</span></div>
+            <div class="accordion-body"><p>{{ faq.reponse }}</p></div>
+          </div>
+          {% empty %}
+          <div class="accordion-item">
+            <div class="accordion-header"><span>Qui est NovaSysTech ?</span><span class="accordion-icon">▼</span></div>
+            <div class="accordion-body"><p>NovaSysTech (NST) est une entreprise togolaise spécialisée dans les services IT : maintenance informatique, vidéosurveillance CCTV, réseaux, alarmes, Cloud & IA et formation certifiante. Basée à Agoè Assiyéyé, Lomé.</p></div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header"><span>Où se trouvent vos bureaux ?</span><span class="accordion-icon">▼</span></div>
+            <div class="accordion-body"><p>Nos bureaux sont situés à Agoè Assiyéyé, derrière la Station Cap Togo, Lomé, Togo. Nous intervenons sur tout le territoire national et dans la sous-région.</p></div>
+          </div>
+          {% endfor %}
+        </div>
+
+        <!-- SERVICES -->
+        <div id="faq-services">
+          <div class="faq-section-title"><div class="line"></div><h3>Services</h3></div>
+          {% for faq in faqs_services %}
+          <div class="accordion-item">
+            <div class="accordion-header"><span>{{ faq.question }}</span><span class="accordion-icon">▼</span></div>
+            <div class="accordion-body"><p>{{ faq.reponse }}</p></div>
+          </div>
+          {% empty %}
+          <div class="accordion-item open">
+            <div class="accordion-header"><span>Quel est le délai d'intervention ?</span><span class="accordion-icon">▼</span></div>
+            <div class="accordion-body open"><p>Pour les urgences techniques, nous garantissons une intervention sous 2 à 4 heures pour nos clients sous contrat. Pour les nouveaux projets, une analyse préliminaire est réalisée sous 48h ouvrables.</p></div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header"><span>Proposez-vous des contrats de maintenance annuelle ?</span><span class="accordion-icon">▼</span></div>
+            <div class="accordion-body"><p>Oui, nous proposons des contrats de maintenance préventive et curative annuels avec des niveaux de service adaptés à vos besoins : essentiel, standard et premium.</p></div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header"><span>Quelles technologies utilisez-vous ?</span><span class="accordion-icon">▼</span></div>
+            <div class="accordion-body"><p>Nous travaillons avec les meilleures marques du marché : Cisco, Hikvision, MikroTik, Microsoft, AWS, Dahua, et bien d'autres selon votre besoin et budget.</p></div>
+          </div>
+          {% endfor %}
+        </div>
+
+        <!-- DEVIS -->
+        <div id="faq-devis">
+          <div class="faq-section-title"><div class="line"></div><h3>Devis & Tarifs</h3></div>
+          {% for faq in faqs_devis %}
+          <div class="accordion-item">
+            <div class="accordion-header"><span>{{ faq.question }}</span><span class="accordion-icon">▼</span></div>
+            <div class="accordion-body"><p>{{ faq.reponse }}</p></div>
+          </div>
+          {% empty %}
+          <div class="accordion-item">
+            <div class="accordion-header"><span>Comment obtenir un devis personnalisé ?</span><span class="accordion-icon">▼</span></div>
+            <div class="accordion-body"><p>Remplissez notre formulaire de devis en ligne, appelez-nous au +228 79 92 81 81 ou écrivez à contact@novasystechn.com. Notre équipe vous répond sous 24h avec une proposition détaillée.</p></div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header"><span>Quels sont vos modes de paiement acceptés ?</span><span class="accordion-icon">▼</span></div>
+            <div class="accordion-body"><p>Nous acceptons les virements bancaires, Mobile Money (Flooz, T-Money), paiement en espèces et chèques certifiés. Un acompte de 40% est généralement requis au démarrage du projet.</p></div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA BOTTOM -->
+    <div class="faq-cta-section">
+      <div>
+        <h2>Vous ne trouvez pas votre réponse ?</h2>
+        <p>Notre équipe d'experts est disponible pour répondre à toutes vos questions spécifiques par email ou téléphone.</p>
+      </div>
+      <div class="faq-cta-buttons">
+        <a href="{% url 'contact' %}" class="btn btn-primary btn-lg"><i class="fas fa-envelope"></i> Contactez-nous</a>
+        <a href="tel:{{ PHONE_1 }}" class="btn btn-outline btn-lg"><i class="fas fa-phone"></i> {{ PHONE_1 }}</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

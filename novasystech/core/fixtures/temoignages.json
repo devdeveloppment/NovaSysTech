@@ -1,0 +1,5 @@
+[
+  {"model": "core.temoignage", "pk": 1, "fields": {"nom": "Jean-Marc Koffi", "poste": "Directeur des Opérations", "entreprise": "LogiTogo", "photo": "", "texte": "NovaSysTech a transformé notre infrastructure réseau en moins de deux semaines. Leur professionnalisme et leur réactivité à Lomé sont inégalés.", "note": 5, "est_publie": true, "ordre": 1, "created_at": "2024-01-01T00:00:00Z"}},
+  {"model": "core.temoignage", "pk": 2, "fields": {"nom": "Amina Bello", "poste": "CTO", "entreprise": "FinTech Horizon", "photo": "", "texte": "La migration Cloud orchestrée par NST nous a permis de réduire nos coûts opérationnels de 30%. Un partenaire stratégique indispensable.", "note": 5, "est_publie": true, "ordre": 2, "created_at": "2024-01-02T00:00:00Z"}},
+  {"model": "core.temoignage", "pk": 3, "fields": {"nom": "Kossi Mensah", "poste": "Directeur Général", "entreprise": "Mensah Logistics", "photo": "", "texte": "NovaSysTech a transformé notre vision en une plateforme e-commerce robuste. La réactivité dès le premier devis a été décisive.", "note": 5, "est_publie": true, "ordre": 3, "created_at": "2024-01-03T00:00:00Z"}}
+]

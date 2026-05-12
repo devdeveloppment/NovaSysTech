@@ -1,0 +1,78 @@
+{% load static %}<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion — NovaSysTech Dashboard</title>
+  <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,#0F2D4A 0%,#1A4A72 50%,#0F2D4A 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
+    .login-wrap{width:100%;max-width:420px;}
+    .login-logo{text-align:center;margin-bottom:32px;}
+    .login-logo img{height:56px;filter:brightness(0) invert(1);margin-bottom:12px;}
+    .login-logo .brand{font-family:'Montserrat',sans-serif;font-size:1.5rem;font-weight:800;color:#fff;}
+    .login-logo .brand span{color:#E87722;}
+    .login-logo .sub{font-size:.8rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.12em;margin-top:4px;}
+    .login-card{background:#fff;border-radius:20px;padding:40px;box-shadow:0 32px 80px rgba(0,0,0,.3);}
+    .login-title{font-family:'Montserrat',sans-serif;font-size:1.3rem;font-weight:700;color:#1A1A2E;margin-bottom:6px;}
+    .login-sub{font-size:.85rem;color:#6B7280;margin-bottom:28px;}
+    .form-group{margin-bottom:18px;}
+    .form-label{display:block;font-size:.82rem;font-weight:600;color:#1A1A2E;margin-bottom:6px;}
+    .form-ctrl{width:100%;padding:12px 16px;border:1.5px solid #E5E7EB;border-radius:10px;font-size:.92rem;font-family:'Inter',sans-serif;outline:none;transition:all .2s;}
+    .form-ctrl:focus{border-color:#E87722;box-shadow:0 0 0 3px rgba(232,119,34,.1);}
+    .input-wrap{position:relative;}
+    .input-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#9CA3AF;font-size:.9rem;}
+    .form-ctrl.with-icon{padding-left:40px;}
+    .btn-login{width:100%;padding:14px;background:#E87722;color:#fff;border:none;border-radius:10px;font-family:'Montserrat',sans-serif;font-size:.95rem;font-weight:700;cursor:pointer;transition:all .2s;margin-top:4px;}
+    .btn-login:hover{background:#C5601A;transform:translateY(-1px);}
+    .error{background:#FEE2E2;border:1px solid #FECACA;color:#991B1B;padding:12px 16px;border-radius:8px;font-size:.85rem;margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+    .login-footer{text-align:center;margin-top:20px;font-size:.78rem;color:rgba(255,255,255,.4);}
+    .site-link{display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.6);font-size:.82rem;text-decoration:none;margin-top:12px;transition:color .2s;}
+    .site-link:hover{color:#E87722;}
+  </style>
+</head>
+<body>
+<div class="login-wrap">
+  <div class="login-logo">
+    <img src="{% static 'images/logo-nav.png' %}" alt="NST" onerror="this.style.display='none'">
+    <div class="brand">Nova<span>Sys</span>Tech</div>
+    <div class="sub">Espace Administration</div>
+  </div>
+
+  <div class="login-card">
+    <div class="login-title">Connexion au Dashboard</div>
+    <div class="login-sub">Accès réservé aux administrateurs NovaSysTech</div>
+
+    {% if error %}
+    <div class="error"><i class="fas fa-exclamation-triangle"></i> {{ error }}</div>
+    {% endif %}
+
+    <form method="post">
+      {% csrf_token %}
+      <div class="form-group">
+        <label class="form-label">Nom d'utilisateur</label>
+        <div class="input-wrap">
+          <i class="fas fa-user input-icon"></i>
+          <input type="text" name="username" class="form-ctrl with-icon" placeholder="admin" required autofocus>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Mot de passe</label>
+        <div class="input-wrap">
+          <i class="fas fa-lock input-icon"></i>
+          <input type="password" name="password" class="form-ctrl with-icon" placeholder="••••••••" required>
+        </div>
+      </div>
+      <button type="submit" class="btn-login"><i class="fas fa-sign-in-alt"></i> Se connecter</button>
+    </form>
+  </div>
+
+  <div class="login-footer">
+    © 2024 NovaSysTech — IT Solution For All<br>
+    <a href="{% url 'index' %}" class="site-link"><i class="fas fa-globe"></i> Retour au site</a>
+  </div>
+</div>
+</body>
+</html>

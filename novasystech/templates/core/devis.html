@@ -1,0 +1,192 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}Demande de Devis Gratuit — NovaSysTech{% endblock %}
+
+{% block content %}
+<section class="page-hero" style="padding-bottom:40px;">
+  <div class="container page-hero-inner">
+    <div class="breadcrumb">
+      <a href="{% url 'index' %}">Accueil</a><span class="sep">/</span><span>Demande de devis</span>
+    </div>
+    <h1>Propulsez votre vision<br><span class="text-blue">numérique.</span></h1>
+    <p style="margin-top:14px;max-width:540px;">Remplissez le formulaire ci-dessous pour recevoir une proposition technique et commerciale personnalisée. Réponse garantie sous 24h.</p>
+  </div>
+</section>
+
+<section class="section-sm">
+  <div class="container">
+    <div class="devis-layout">
+      <div>
+        <form class="devis-form-card" id="devis-form" method="post" action="{% url 'devis' %}">
+          {% csrf_token %}
+
+          <div class="step-header">
+            <div class="step-num">1</div>
+            <h3>Informations de contact</h3>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nom_complet">Nom complet <span>*</span></label>
+              <input type="text" name="nom_complet" id="nom_complet" class="form-control" placeholder="Ex: Jean Koffi" required>
+            </div>
+            <div class="form-group">
+              <label for="entreprise">Entreprise / Organisation</label>
+              <input type="text" name="entreprise" id="entreprise" class="form-control" placeholder="Nom de votre structure">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email professionnel <span>*</span></label>
+              <input type="email" name="email" id="email" class="form-control" placeholder="contact@entreprise.com" required>
+            </div>
+            <div class="form-group">
+              <label for="telephone">Téléphone <span>*</span></label>
+              <input type="tel" name="telephone" id="telephone" class="form-control" placeholder="+228 00 00 00 00" required>
+            </div>
+          </div>
+
+          <div class="step-divider"></div>
+          <div class="step-header">
+            <div class="step-num">2</div>
+            <h3>Détails du projet</h3>
+          </div>
+          <div class="form-group">
+            <label for="service">Service souhaité <span>*</span></label>
+            <select name="service" id="service" class="form-control" required>
+              <option value="">— Sélectionnez un service —</option>
+              {% for s in services %}
+              <option value="{{ s.slug }}" {% if request.GET.service == s.slug %}selected{% endif %}>{{ s.nom }}</option>
+              {% empty %}
+              <option value="maintenance">Maintenance Informatique</option>
+              <option value="cctv">Vidéosurveillance (CCTV)</option>
+              <option value="reseaux">Réseaux Wi-Fi & Câblé</option>
+              <option value="alarmes">Alarmes & Contrôle d'accès</option>
+              <option value="cloud_ia">Cloud & Intelligence Artificielle</option>
+              <option value="formation">Formation & Certification</option>
+              <option value="autre">Autre</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="description">Description de vos besoins <span>*</span></label>
+            <textarea name="description" id="description" class="form-control"
+              placeholder="Décrivez votre projet, vos objectifs, le nombre d'utilisateurs, les fonctionnalités clés..." required></textarea>
+          </div>
+
+          <div class="step-divider"></div>
+          <div class="step-header">
+            <div class="step-num">3</div>
+            <h3>Budget & Délais</h3>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="budget">Fourchette budgétaire (FCFA)</label>
+              <select name="budget" id="budget" class="form-control">
+                <option value="lt100">Moins de 100 000 FCFA</option>
+                <option value="100_500">100 000 – 500 000 FCFA</option>
+                <option value="500_1m" selected>500 000 – 2 000 000 FCFA</option>
+                <option value="gt2m">Plus de 2 000 000 FCFA</option>
+                <option value="nd">Non défini</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="delai">Délai souhaité</label>
+              <select name="delai" id="delai" class="form-control">
+                <option value="urgent">Urgent (Moins de 1 mois)</option>
+                <option value="1_3m">1 à 3 mois</option>
+                <option value="3_6m">3 à 6 mois</option>
+                <option value="flexible" selected>Flexible</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- reCAPTCHA -->
+          <div class="recaptcha-note">
+            <i class="fas fa-shield-alt" style="color:var(--blue);"></i>
+            <span>Protégé par Google reCAPTCHA ·
+              <a href="https://policies.google.com/privacy" style="color:var(--blue);">Confidentialité</a>
+            </span>
+          </div>
+          <div class="g-recaptcha" data-sitekey="{{ RECAPTCHA_PUBLIC_KEY }}" style="margin-bottom:16px;"></div>
+
+          <div class="form-submit-group">
+            <button type="submit" class="btn btn-primary btn-lg" style="width:100%;justify-content:center;">
+              <i class="fas fa-paper-plane"></i> Envoyer ma demande de devis
+            </button>
+            <p class="form-note">En soumettant ce formulaire, vous acceptez notre politique de confidentialité. Un email de confirmation vous sera envoyé.</p>
+          </div>
+        </form>
+      </div>
+
+      <div class="devis-sidebar">
+        <div class="sidebar-info-card">
+          <h4>Pourquoi NovaSysTech ?</h4>
+          <div class="sidebar-info-item">
+            <div class="icon"><i class="fas fa-gift"></i></div>
+            <div><strong>Devis 100% gratuit</strong><span>Analyse complète de votre besoin sans frais initiaux.</span></div>
+          </div>
+          <div class="sidebar-info-item">
+            <div class="icon"><i class="fas fa-clock"></i></div>
+            <div><strong>Réponse sous 24h</strong><span>Nos experts vous recontactent dans un délai garanti.</span></div>
+          </div>
+          <div class="sidebar-info-item">
+            <div class="icon"><i class="fas fa-handshake"></i></div>
+            <div><strong>Sans engagement</strong><span>Explorez vos options en toute liberté et confiance.</span></div>
+          </div>
+          <div class="sidebar-info-item">
+            <div class="icon"><i class="fas fa-certificate"></i></div>
+            <div><strong>Techniciens certifiés</strong><span>Experts certifiés Cisco, MikroTik, Microsoft et plus.</span></div>
+          </div>
+        </div>
+
+        {% if temoignage %}
+        <div class="sidebar-temoignage">
+          <div class="sidebar-stars">★★★★★</div>
+          <p>"{{ temoignage.texte|truncatewords:35 }}"</p>
+          <div class="temoignage-author">
+            <div class="avatar-placeholder">{{ temoignage.nom|slice:":1" }}</div>
+            <div>
+              <strong>{{ temoignage.nom }}</strong>
+              <span>{{ temoignage.poste }}{% if temoignage.entreprise %}, {{ temoignage.entreprise }}{% endif %}</span>
+            </div>
+          </div>
+        </div>
+        {% else %}
+        <div class="sidebar-temoignage">
+          <div class="sidebar-stars">★★★★★</div>
+          <p>"NovaSysTech a transformé notre vision en une infrastructure robuste. La réactivité dès le premier devis a été décisive."</p>
+          <div class="temoignage-author">
+            <div class="avatar-placeholder">K</div>
+            <div><strong>Kossi Mensah</strong><span>Directeur, Mensah Logistics</span></div>
+          </div>
+        </div>
+        {% endif %}
+
+        <div class="sidebar-urgence">
+          <h4><i class="fas fa-bolt" style="color:var(--orange);margin-right:6px;"></i>Besoin urgent ?</h4>
+          <div class="urgence-contact">
+            <span class="icon"><i class="fas fa-phone"></i></span>
+            <a href="tel:+22879928181">{{ PHONE_1 }}</a>
+          </div>
+          <div class="urgence-contact">
+            <span class="icon"><i class="fas fa-phone"></i></span>
+            <a href="tel:+22870307968">{{ PHONE_2 }}</a>
+          </div>
+          <div class="urgence-contact">
+            <span class="icon"><i class="fas fa-envelope"></i></span>
+            <a href="mailto:{{ EMAIL_CONTACT }}">{{ EMAIL_CONTACT }}</a>
+          </div>
+          <a href="https://wa.me/{{ WHATSAPP_NUMBER }}?text=Bonjour%20NST%2C%20j%27ai%20besoin%20d%27aide%20urgente..."
+             class="btn btn-primary btn-sm" style="width:100%;justify-content:center;margin-top:14px;" target="_blank">
+            <i class="fab fa-whatsapp"></i> Discuter sur WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+{% endblock %}

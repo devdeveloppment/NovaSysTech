@@ -1,0 +1,165 @@
+{% extends 'base/base.html' %}
+{% block title %}Blog & Actualités IT — NovaSysTech{% endblock %}
+{% block content %}
+<section class="page-hero" style="padding-bottom:40px;">
+  <div class="container page-hero-inner">
+    <div style="display:grid;grid-template-columns:1fr auto;align-items:end;gap:32px;flex-wrap:wrap;">
+      <div>
+        <div class="section-tag">Innovations & Perspectives</div>
+        <h1>Blog & Actualités<br>Technologiques</h1>
+        <p>Explorez les dernières tendances IT, nos analyses d'experts et les transformations numériques qui façonnent l'avenir technologique au Togo et en Afrique.</p>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:.78rem;color:var(--gray-dark);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;">Articles publiés</div>
+        <div style="font-family:var(--font-display);font-size:2.5rem;font-weight:800;color:var(--orange);">{{ total_articles }}+</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="blog-layout">
+      <div>
+        {% if une %}
+        <a href="{% url 'article_detail' une.slug %}" class="blog-une">
+          <div class="blog-une-image">
+            {% if une.image_hero %}<img src="{{ une.image_hero.url }}" alt="{{ une.titre }}">
+            {% else %}<img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80" alt="{{ une.titre }}">{% endif %}
+            <span class="une-badge">À LA UNE</span>
+          </div>
+          <div class="blog-une-content">
+            <div class="blog-meta">
+              {% if une.categorie %}<span class="blog-cat">{{ une.categorie.nom }}</span>{% endif %}
+              <span class="blog-date">{{ une.date_publication|date:"d M Y" }}</span>
+            </div>
+            <h2>{{ une.titre }}</h2>
+            <p>{{ une.extrait|truncatewords:40 }}</p>
+            <div class="blog-author">
+              <div class="author-avatar">{{ une.auteur|slice:":1" }}</div>
+              <span>Par {{ une.auteur }}</span>
+              <span style="margin-left:8px;color:var(--gray-dark);">· {{ une.temps_lecture }} min lecture</span>
+            </div>
+          </div>
+        </a>
+        {% else %}
+        <a href="#" class="blog-une">
+          <div class="blog-une-image">
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80" alt="Cybersécurité">
+            <span class="une-badge">À LA UNE</span>
+          </div>
+          <div class="blog-une-content">
+            <div class="blog-meta"><span class="blog-cat">Sécurité</span><span class="blog-date">15 Mars 2024</span></div>
+            <h2>L'importance de la cybersécurité au Togo : Enjeux et Solutions</h2>
+            <p>Face à la numérisation croissante des services publics et privés au Togo, la protection des données devient un pilier stratégique incontournable pour les entreprises...</p>
+            <div class="blog-author"><div class="author-avatar">K</div><span>Par Koffi Danklou</span><span style="margin-left:8px;color:var(--gray-dark);">· 8 min lecture</span></div>
+          </div>
+        </a>
+        {% endif %}
+
+        <div class="blog-grid" style="margin-top:24px;">
+          {% for article in articles %}
+          <a href="{% url 'article_detail' article.slug %}" class="blog-card">
+            <div class="blog-card-image">
+              {% if article.image_hero %}<img src="{{ article.image_hero.url }}" alt="{{ article.titre }}">
+              {% else %}<img src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=400&q=80" alt="{{ article.titre }}">{% endif %}
+              {% if article.categorie %}<span class="blog-card-tag">{{ article.categorie.nom }}</span>{% endif %}
+            </div>
+            <div class="blog-card-body">
+              <div class="blog-meta" style="margin-bottom:8px;"><span class="blog-date">{{ article.date_publication|date:"d M Y" }}</span><span style="margin-left:8px;font-size:.78rem;color:var(--gray-dark);">· {{ article.temps_lecture }} min</span></div>
+              <h3>{{ article.titre }}</h3>
+              <p>{{ article.extrait|truncatewords:20 }}</p>
+              <div class="blog-author"><div class="author-avatar">{{ article.auteur|slice:":1" }}</div><span style="font-size:.8rem;">Par {{ article.auteur }}</span></div>
+            </div>
+          </a>
+          {% empty %}
+          {% for t, d, cat, mins in demo_articles %}
+          <div class="blog-card">
+            <div class="blog-card-image">
+              <img src="{{ d }}" alt="{{ t }}">
+              <span class="blog-card-tag">{{ cat }}</span>
+            </div>
+            <div class="blog-card-body">
+              <div class="blog-meta" style="margin-bottom:8px;"><span class="blog-date">Mar 2024</span><span style="margin-left:8px;font-size:.78rem;color:var(--gray-dark);">· {{ mins }} min</span></div>
+              <h3>{{ t }}</h3>
+              <p>Découvrez nos dernières analyses et conseils pour votre transformation digitale.</p>
+              <div class="blog-author"><div class="author-avatar">N</div><span style="font-size:.8rem;">Par Équipe NST</span></div>
+            </div>
+          </div>
+          {% endfor %}
+          {% endfor %}
+        </div>
+
+        {% if articles.has_other_pages %}
+        <div class="pagination">
+          {% if articles.has_previous %}<a href="?page={{ articles.previous_page_number }}" class="page-btn">‹</a>{% endif %}
+          {% for n in articles.paginator.page_range %}
+          <a href="?page={{ n }}" class="page-btn {% if n == articles.number %}active{% endif %}">{{ n }}</a>
+          {% endfor %}
+          {% if articles.has_next %}<a href="?page={{ articles.next_page_number }}" class="page-btn">›</a>{% endif %}
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- SIDEBAR -->
+      <div class="blog-sidebar">
+        <div class="sidebar-widget dark newsletter-widget">
+          <h4>Restez informé</h4>
+          <p style="font-size:.85rem;color:rgba(255,255,255,.7);margin-bottom:14px;">Inscrivez-vous à notre newsletter pour recevoir les dernières actualités IT directement dans votre boite mail.</p>
+          <form class="newsletter-form-js" action="{% url 'newsletter' %}" method="post">
+            {% csrf_token %}
+            <input type="email" name="email" placeholder="votre@email.com" required>
+            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">S'abonner</button>
+          </form>
+        </div>
+
+        <div class="sidebar-widget">
+          <h4>Catégories</h4>
+          <div class="cat-list">
+            {% for cat in categories %}
+            <a href="?categorie={{ cat.slug }}" class="cat-item">{{ cat.nom }}<span class="cat-count">{{ cat.article_set.count }}</span></a>
+            {% empty %}
+            <div class="cat-item">Cybersécurité<span class="cat-count">12</span></div>
+            <div class="cat-item">Intelligence Artificielle<span class="cat-count">8</span></div>
+            <div class="cat-item">Cloud & Infra<span class="cat-count">15</span></div>
+            <div class="cat-item">Développement Web<span class="cat-count">22</span></div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="sidebar-widget">
+          <h4>Articles populaires</h4>
+          {% for art in populaires %}
+          <div class="populaire-item">
+            <div class="pop-num {% if forloop.counter == 2 %}alt{% elif forloop.counter == 3 %}alt2{% endif %}">{{ forloop.counter }}</div>
+            <div><div class="pop-title">{{ art.titre|truncatewords:8 }}</div><div class="pop-date">{{ art.date_publication|date:"d M Y" }}</div></div>
+          </div>
+          {% empty %}
+          <div class="populaire-item"><div class="pop-num">1</div><div><div class="pop-title">Le futur de la 5G au Togo</div><div class="pop-date">02 Jan 2024</div></div></div>
+          <div class="populaire-item"><div class="pop-num alt">2</div><div><div class="pop-title">Guide sécurité télétravail</div><div class="pop-date">18 Déc 2023</div></div></div>
+          <div class="populaire-item"><div class="pop-num alt2">3</div><div><div class="pop-title">Transformation Agile DSI</div><div class="pop-date">05 Déc 2023</div></div></div>
+          {% endfor %}
+        </div>
+
+        <div class="sidebar-widget">
+          <h4>Tags</h4>
+          <div class="tags-cloud">
+            <span class="tag-pill">TogoTech</span><span class="tag-pill">Innovation</span><span class="tag-pill">ERP</span><span class="tag-pill">Lomé</span><span class="tag-pill">Startups</span><span class="tag-pill">Networking</span><span class="tag-pill">Cloud</span><span class="tag-pill">IA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-sm" style="background:var(--gray-light);">
+  <div class="container" style="text-align:center;">
+    <h2 data-aos>Prêt à transformer votre entreprise ?</h2>
+    <p style="color:var(--gray-dark);max-width:480px;margin:14px auto 28px;" data-aos>Nos experts sont là pour vous accompagner dans tous vos projets technologiques.</p>
+    <div style="display:flex;gap:14px;justify-content:center;" data-aos>
+      <a href="{% url 'services' %}" class="btn btn-primary btn-lg">Consulter nos services</a>
+      <a href="{% url 'contact' %}" class="btn btn-outline-dark btn-lg">Nous contacter</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

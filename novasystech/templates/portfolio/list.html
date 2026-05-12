@@ -1,0 +1,85 @@
+{% extends 'base/base.html' %}
+{% block title %}Nos Réalisations — Portfolio NovaSysTech{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container page-hero-inner">
+    <div class="portfolio-hero-inner">
+      <div>
+        <div class="section-tag" style="background:rgba(232,119,34,.1);color:var(--orange-dark);">Notre Excellence Technologique</div>
+        <h1>Nos <span class="text-blue">Réalisations</span></h1>
+        <p>Explorez comment NovaSysTech transforme les défis technologiques en succès tangibles pour les entreprises leaders au Togo.</p>
+      </div>
+      <div class="portfolio-filters">
+        <button class="filter-btn {% if cat_active == 'tous' %}active{% endif %}" data-filter="tous">Tous</button>
+        {% for slug, label in categories %}
+        <button class="filter-btn {% if cat_active == slug %}active{% endif %}" data-filter="{{ slug }}">{{ label|cut:" & Sécurité"|cut:" & Contrôle" }}</button>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="portfolio-grid">
+      {% for projet in projets %}
+      <div class="portfolio-item item" data-cat="{{ projet.categorie }}" data-aos>
+        {% if projet.image %}
+        <img src="{{ projet.image.url }}" alt="{{ projet.titre }}" loading="lazy" decoding="async" style="width:100%;height:auto;">
+        {% else %}
+        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80" alt="{{ projet.titre }}" loading="lazy" decoding="async" style="width:100%;height:auto;">
+        {% endif %}
+        <div class="portfolio-overlay">
+          <span class="portfolio-badge">{{ projet.get_categorie_display }}</span>
+          <h3>{{ projet.titre }}</h3>
+          <p>{{ projet.description|truncatewords:15 }}</p>
+        </div>
+      </div>
+      {% empty %}
+      <!-- DEMO PROJETS -->
+      {% for img_url, titre, cat, desc in demo_projets %}
+      <div class="portfolio-item item" data-cat="{{ cat }}" data-aos>
+        <img src="{{ img_url }}" alt="{{ titre }}" loading="lazy" decoding="async" style="width:100%;height:auto;">
+        <div class="portfolio-overlay">
+          <span class="portfolio-badge">{{ cat|title }}</span>
+          <h3>{{ titre }}</h3>
+          <p>{{ desc }}</p>
+        </div>
+      </div>
+      {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section-sm">
+  <div class="container">
+    <div style="text-align:center;background:var(--gray-light);border-radius:var(--radius-xl);padding:80px 40px;" data-aos>
+      <h2 style="color:var(--blue);">Prêt à démarrer votre projet ?</h2>
+      <p style="color:var(--gray-dark);max-width:540px;margin:16px auto 32px;">Confiez vos infrastructures technologiques à une équipe d'experts passionnés. Nous transformons vos besoins en solutions performantes et sécurisées.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <a href="{% url 'devis' %}" class="btn btn-primary btn-lg">Discuter avec un expert</a>
+        <a href="{% url 'services' %}" class="btn btn-outline-dark btn-lg">Voir tous nos services</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Portfolio filter enhancement
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    const filter = this.dataset.filter;
+    document.querySelectorAll('.portfolio-item').forEach(item => {
+      const show = filter === 'tous' || item.dataset.cat === filter;
+      item.style.display = show ? 'block' : 'none';
+    });
+  });
+});
+</script>
+{% endblock %}

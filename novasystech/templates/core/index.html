@@ -1,0 +1,253 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}NovaSysTech — Votre partenaire IT de confiance en Afrique de l'Ouest{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="hero-home">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="hero-tag" data-aos>
+          <i class="fas fa-bolt"></i> Leader IT au Togo
+        </div>
+        <h1 class="hero-title" data-aos data-aos-delay="100">
+          Votre partenaire IT de <span class="highlight">confiance</span><br>en Afrique de l'Ouest
+        </h1>
+        <p class="hero-sub" data-aos data-aos-delay="200">
+          Maintenance, Réseaux, CCTV, Alarmes, Cloud & Formation. Nous forgerons l'infrastructure numérique de demain pour les entreprises ambitieuses.
+        </p>
+        <div class="hero-actions" data-aos data-aos-delay="300">
+          <a href="{% url 'devis' %}" class="btn btn-primary btn-lg">
+            <i class="fas fa-paper-plane"></i> Demander un devis gratuit
+          </a>
+          <a href="{% url 'services' %}" class="btn btn-outline-dark">
+            Nos Services <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        <div class="hero-badges" data-aos data-aos-delay="400">
+          <div class="hero-badge">
+            <div class="hero-badge-num">50+</div>
+            <div class="hero-badge-label">Clients<br>actifs</div>
+          </div>
+          <div class="hero-badge" style="padding-left:24px;border-left:1px solid var(--gray-mid);">
+            <div class="hero-badge-num">120+</div>
+            <div class="hero-badge-label">Projets<br>livrés</div>
+          </div>
+          <div class="hero-badge" style="padding-left:24px;border-left:1px solid var(--gray-mid);">
+            <div class="hero-badge-num">5+</div>
+            <div class="hero-badge-label">Années<br>d'expertise</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-image-wrap" data-aos="fade-left" data-aos-delay="200">
+        <img src="{% static 'images/cctv-hero.png' %}" alt="Caméras CCTV de surveillance NovaSysTech" loading="lazy">
+        <div class="hero-card-float">
+          <div class="icon"><i class="fas fa-certificate"></i></div>
+          <div>
+            <strong>Excellence certifiée</strong>
+            <span>Normes internationales appliquées à chaque déploiement local à Lomé.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<section class="stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <span class="num" data-counter="50" data-suffix="+">50+</span>
+        <span class="label">Clients Actifs</span>
+      </div>
+      <div class="stat-item">
+        <span class="num" data-counter="120" data-suffix="+">120+</span>
+        <span class="label">Projets Livrés</span>
+      </div>
+      <div class="stat-item">
+        <span class="num" data-counter="5" data-suffix="+">5+</span>
+        <span class="label">Années d'Expertise</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section">
+  <div class="container">
+    <div class="section-header" data-aos>
+      <div class="section-tag">Expertises Technologiques</div>
+      <h2>Des solutions sur mesure conçues<br>pour la performance et la sécurité</h2>
+      <p>Des solutions sur mesure conçues pour la performance, la sécurité et l'évolutivité de votre système d'information.</p>
+    </div>
+
+    <div class="services-grid">
+      {% for service in services %}
+      <a href="{{ service.get_absolute_url }}" class="service-card" data-aos data-aos-delay="{{ forloop.counter0|add:1 }}00">
+        <div class="service-icon">
+          {% if service.icone == 'wrench' %}<i class="fas fa-wrench"></i>
+          {% elif service.icone == 'video' %}<i class="fas fa-video"></i>
+          {% elif service.icone == 'wifi' %}<i class="fas fa-wifi"></i>
+          {% elif service.icone == 'shield' %}<i class="fas fa-shield-alt"></i>
+          {% elif service.icone == 'cloud' %}<i class="fas fa-cloud"></i>
+          {% elif service.icone == 'graduation-cap' %}<i class="fas fa-graduation-cap"></i>
+          {% else %}<i class="fas fa-cog"></i>{% endif %}
+        </div>
+        <h3>{{ service.nom }}</h3>
+        <p>{{ service.description_courte }}</p>
+        <span class="link">En savoir plus <i class="fas fa-arrow-right"></i></span>
+      </a>
+      {% empty %}
+      {% for s in default_services %}
+      <div class="service-card" data-aos data-aos-delay="{{ forloop.counter0|add:1 }}00">
+        <div class="service-icon"><i class="fas {{ s.icon }}"></i></div>
+        <h3>{{ s.nom }}</h3>
+        <p>{{ s.desc }}</p>
+        <a href="{% url 'services' %}" class="link">En savoir plus <i class="fas fa-arrow-right"></i></a>
+      </div>
+      {% endfor %}
+      {% endfor %}
+    </div>
+
+    {% if not services %}
+    <!-- Fallback si pas de données en DB -->
+    <div class="services-grid" style="margin-top:24px;">
+      {% for item in "123456" %}
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<!-- TEMOIGNAGES -->
+<section class="section temoignages-section">
+  <div class="container">
+    <div class="section-header centered" data-aos>
+      <h2>Ils nous font <span class="text-blue">confiance</span></h2>
+      <div style="width:48px;height:3px;background:var(--orange);margin:16px auto 0;border-radius:2px;"></div>
+    </div>
+
+    <div class="services-grid" style="margin-top:0">
+      {% for t in temoignages %}
+      <div class="temoignage-card" data-aos data-aos-delay="{{ forloop.counter0|add:1 }}00">
+        <div class="quote-icon">"</div>
+        <div class="stars">★★★★★</div>
+        <p>"{{ t.texte }}"</p>
+        <div class="temoignage-author">
+          {% if t.photo %}
+          <img src="{{ t.photo.url }}" alt="{{ t.nom }}">
+          {% else %}
+          <div class="avatar-placeholder">{{ t.nom|slice:":1" }}</div>
+          {% endif %}
+          <div>
+            <strong>{{ t.nom }}</strong>
+            <span>{{ t.poste }}{% if t.entreprise %}, {{ t.entreprise }}{% endif %}</span>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <!-- Témoignages de démo -->
+      <div class="temoignage-card" data-aos>
+        <div class="quote-icon">"</div>
+        <div class="stars">★★★★★</div>
+        <p>"NovaSysTech a transformé notre infrastructure réseau en moins de deux semaines. Leur professionnalisme et leur réactivité à Lomé sont inégalés."</p>
+        <div class="temoignage-author">
+          <div class="avatar-placeholder">J</div>
+          <div><strong>Jean-Marc Koffi</strong><span>Directeur des Opérations, LogiTogo</span></div>
+        </div>
+      </div>
+      <div class="temoignage-card" data-aos data-aos-delay="100">
+        <div class="quote-icon">"</div>
+        <div class="stars">★★★★★</div>
+        <p>"La migration Cloud orchestrée par NST nous a permis de réduire nos coûts opérationnels de 30%. Un partenaire stratégique indispensable."</p>
+        <div class="temoignage-author">
+          <div class="avatar-placeholder">A</div>
+          <div><strong>Amina Bello</strong><span>CTO, FinTech Horizon</span></div>
+        </div>
+      </div>
+      <div class="temoignage-card" data-aos data-aos-delay="200">
+        <div class="quote-icon">"</div>
+        <div class="stars">★★★★★</div>
+        <p>"La formation en cybersécurité de NST a permis à notre équipe de sécuriser nos systèmes. Qualité et expertise au rendez-vous."</p>
+        <div class="temoignage-author">
+          <div class="avatar-placeholder">K</div>
+          <div><strong>Kossi Mensah</strong><span>DSI, Banque Atlantique</span></div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- PROCESSUS -->
+<section class="section">
+  <div class="container">
+    <div class="section-header centered" data-aos>
+      <div class="section-tag">Notre Méthode</div>
+      <h2>Comment ça marche ?</h2>
+      <p>Un processus simple et structuré pour vous garantir des résultats à la hauteur de vos attentes.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;">
+      {% for step in "1234" %}
+      {% if forloop.counter == 1 %}
+      <div class="service-card" data-aos data-aos-delay="0">
+        <div class="service-icon" style="background:var(--orange-light);color:var(--orange);">
+          <i class="fas fa-comments"></i>
+        </div>
+        <h4 style="font-size:.8rem;color:var(--orange);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Étape 1</h4>
+        <h3>Prise de contact</h3>
+        <p>Analyse gratuite de vos besoins et de votre infrastructure existante.</p>
+      </div>
+      {% elif forloop.counter == 2 %}
+      <div class="service-card" data-aos data-aos-delay="100">
+        <div class="service-icon" style="background:var(--orange-light);color:var(--orange);">
+          <i class="fas fa-file-alt"></i>
+        </div>
+        <h4 style="font-size:.8rem;color:var(--orange);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Étape 2</h4>
+        <h3>Proposition sur mesure</h3>
+        <p>Devis détaillé et solution adaptée à votre contexte et budget.</p>
+      </div>
+      {% elif forloop.counter == 3 %}
+      <div class="service-card" data-aos data-aos-delay="200">
+        <div class="service-icon" style="background:var(--orange-light);color:var(--orange);">
+          <i class="fas fa-rocket"></i>
+        </div>
+        <h4 style="font-size:.8rem;color:var(--orange);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Étape 3</h4>
+        <h3>Déploiement pro</h3>
+        <p>Installation et configuration par nos techniciens certifiés, dans les délais.</p>
+      </div>
+      {% else %}
+      <div class="service-card" data-aos data-aos-delay="300">
+        <div class="service-icon" style="background:var(--orange-light);color:var(--orange);">
+          <i class="fas fa-headset"></i>
+        </div>
+        <h4 style="font-size:.8rem;color:var(--orange);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Étape 4</h4>
+        <h3>Suivi & maintenance</h3>
+        <p>Support continu et maintenance préventive pour garantir la continuité.</p>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="section-sm">
+  <div class="container">
+    <div class="cta-section" data-aos>
+      <h2>Prêt à digitaliser votre infrastructure ?</h2>
+      <p>Rejoignez les entreprises qui dominent leur marché grâce à une technologie robuste et sécurisée.</p>
+      <div class="cta-actions">
+        <a href="{% url 'devis' %}" class="btn btn-primary btn-lg">Demander un devis</a>
+        <a href="{% url 'contact' %}" class="btn btn-outline btn-lg">Nous contacter</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

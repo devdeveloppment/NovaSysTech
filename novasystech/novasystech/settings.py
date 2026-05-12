@@ -1,0 +1,147 @@
+import os
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+SECRET_KEY = 'nst-novasystech-lome-togo-2024-secure-key-change-prod-xyz789abc'
+DEBUG = True
+ALLOWED_HOSTS = ['*']
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'django.contrib.sitemaps',
+    'core', 'services', 'blog', 'portfolio', 'faq',
+    'dashboard',
+]
+
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+ROOT_URLCONF = 'novasystech.urls'
+TEMPLATES = [{
+    'BACKEND': 'django.template.backends.django.DjangoTemplates',
+    'DIRS': [BASE_DIR / 'templates'],
+    'APP_DIRS': True,
+    'OPTIONS': {'context_processors': [
+        'django.template.context_processors.debug',
+        'django.template.context_processors.request',
+        'django.contrib.auth.context_processors.auth',
+        'django.contrib.messages.context_processors.messages',
+        'core.context_processors.global_context',
+    ]},
+}]
+
+WSGI_APPLICATION = 'novasystech.wsgi.application'
+DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3', 'NAME': BASE_DIR / 'db.sqlite3'}}
+LANGUAGE_CODE = 'fr-fr'
+TIME_ZONE = 'Africa/Lome'
+USE_I18N = True
+USE_TZ = True
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# EMAIL SMTP Gmail
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'denistchil@gmail.com'
+EMAIL_HOST_PASSWORD = 'xbar wczf qlip ncra'
+DEFAULT_FROM_EMAIL = 'denistchil@gmail.com'  # IMPORTANT: Utiliser l'email du compte SMTP
+SERVER_EMAIL = 'denistchil@gmail.com'  # Pour les erreurs système
+EMAIL_SUBJECT_PREFIX = '[NovaSysTech] '
+
+# CONTACTS
+NST_OWNER_EMAIL = 'contact@novasystechn.com'
+NST_EMAILS = [NST_OWNER_EMAIL]
+PHONE_1 = '+228 79 92 81 81'
+PHONE_2 = '+228 70 30 79 68'
+EMAIL_CONTACT = NST_OWNER_EMAIL
+EMAIL_SUPPORT = NST_OWNER_EMAIL
+WHATSAPP_NUMBER = '22879928181'
+ADRESSE = "Agoè Assiyéyé, derrière Station Cap Togo, Lomé, Togo"
+MAPS_URL = 'https://maps.app.goo.gl/eKKpaoyeKmnqDYs26'
+SITE_URL = 'https://Novasystech.net'
+
+# reCAPTCHA
+RECAPTCHA_PUBLIC_KEY = '6LdvzMAsAAAAANhoeZWY0zL4szRG9cRtsj36WTLv'
+RECAPTCHA_PRIVATE_KEY = '6LdvzMAsAAAAAFzlDGhuc6HUl_NEh901dtwpEdcI'
+
+# LOGGING pour déboguer les erreurs d'email
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': BASE_DIR / 'email_debug.log',
+            'formatter': 'verbose',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django.core.mail': {
+            'handlers': ['file', 'console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
+}
+
+# LOGGING pour déboguer les erreurs d'email
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': BASE_DIR / 'email_debug.log',
+            'formatter': 'verbose',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django.core.mail': {
+            'handlers': ['file', 'console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
+}

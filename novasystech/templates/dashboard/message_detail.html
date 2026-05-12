@@ -1,0 +1,145 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}Message — {{ msg.nom }}{% endblock %}
+{% block page_title %}Message de {{ msg.nom }}{% endblock %}
+{% block breadcrumb %}<a href="{% url 'dashboard_home' %}">Accueil</a> / <a href="{% url 'messages_list' %}">Messages</a> / {{ msg.nom }}{% endblock %}
+{% block topbar_actions %}
+{% if not msg.a_reponse %}<a href="#reply-form" class="topbar-btn primary"><i class="fas fa-reply"></i> Répondre</a>{% endif %}
+{% if msg.telephone %}<a href="tel:{{ msg.telephone }}" class="topbar-btn ghost"><i class="fas fa-phone"></i> Appeler</a>{% endif %}
+{% endblock %}
+{% block content %}
+<div class="grid-3">
+  <div class="card">
+    <div class="card-header"><h3><i class="fas fa-envelope-open" style="color:var(--orange);margin-right:8px;"></i>{{ msg.sujet }}</h3><span class="badge green">Lu</span></div>
+    <div style="padding:28px;">
+      <div style="background:var(--gray-light);border-radius:8px;padding:20px;margin-bottom:20px;line-height:1.85;color:var(--text-light);white-space:pre-wrap;font-size:.95rem;">{{ msg.message }}</div>
+      
+      {% if msg.a_reponse %}
+      <div style="background:#f0f8ff;border-left:4px solid #2563eb;border-radius:8px;padding:20px;margin-bottom:20px;">
+        <div style="font-size:0.85rem;color:#2563eb;font-weight:600;margin-bottom:10px;"><i class="fas fa-check-circle"></i> Réponse envoyée le {{ msg.repondu_le|date:"d/m/Y à H:i" }}</div>
+        <div style="color:var(--text-light);line-height:1.85;white-space:pre-wrap;font-size:.95rem;">{{ msg.reponse }}</div>
+      </div>
+      {% else %}
+      <form id="reply-form" method="POST" action="{% url 'message_reply' msg.pk %}" style="margin-bottom:20px;">
+        {% csrf_token %}
+        <div style="margin-bottom:15px;">
+          <label style="display:block;font-weight:600;margin-bottom:8px;color:var(--text-dark);">Votre réponse</label>
+          <textarea name="reponse" rows="8" required style="width:100%;padding:12px;border:1px solid var(--border-color);border-radius:8px;font-family:inherit;resize:vertical;" placeholder="Entrez votre réponse ici..."></textarea>
+        </div>
+        <button type="submit" class="topbar-btn primary" style="width:100%;"><i class="fas fa-paper-plane"></i> Envoyer la réponse</button>
+      </form>
+      {% endif %}
+      
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="mailto:{{ msg.email }}" class="topbar-btn ghost"><i class="fas fa-envelope"></i> Email direct</a>
+        <a href="{% url 'messages_list' %}" class="topbar-btn ghost"><i class="fas fa-arrow-left"></i> Retour</a>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="height:fit-content;">
+    <div class="card-header"><h3><i class="fas fa-user" style="color:var(--orange);margin-right:8px;"></i>Expéditeur</h3></div>
+    <div style="padding:20px;" class="detail-grid">
+      <div class="detail-item detail-full"><div class="detail-label">Nom</div><div class="detail-value">{{ msg.nom }}</div></div>
+      <div class="detail-item detail-full"><div class="detail-label">Email</div><div class="detail-value"><a href="mailto:{{ msg.email }}" style="color:var(--blue);">{{ msg.email }}</a></div></div>
+      {% if msg.telephone %}<div class="detail-item detail-full"><div class="detail-label">Téléphone</div><div class="detail-value"><a href="tel:{{ msg.telephone }}" style="color:var(--blue);">{{ msg.telephone }}</a></div></div>{% endif %}
+      <div class="detail-item detail-full"><div class="detail-label">Message reçu le</div><div class="detail-value">{{ msg.created_at|date:"d/m/Y à H:i" }}</div></div>
+      {% if msg.a_reponse %}<div class="detail-item detail-full"><div class="detail-label">Statut</div><div class="detail-value"><span class="badge green">✓ Répondu</span></div></div>{% endif %}
+    </div>
+  </div>
+</div>
+
+<style>
+.grid-3 {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+}
+@media (max-width: 1024px) {
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  border: 1px solid #e5e7eb;
+}
+.card-header {
+  padding: 20px 28px;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.card-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--text-dark);
+}
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.badge.green {
+  background: #d1fae5;
+  color: #065f46;
+}
+.detail-grid {
+  display: grid;
+  gap: 16px;
+}
+.detail-item {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 12px;
+}
+.detail-item.detail-full {
+  grid-template-columns: 1fr;
+}
+.detail-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+}
+.detail-value {
+  color: var(--text-dark);
+  font-size: 0.95rem;
+}
+.topbar-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.topbar-btn.primary {
+  background: var(--orange);
+  color: white;
+}
+.topbar-btn.primary:hover {
+  background: #ff9800;
+  opacity: 0.9;
+}
+.topbar-btn.ghost {
+  background: #f3f4f6;
+  color: var(--text-dark);
+  border: 1px solid #e5e7eb;
+}
+.topbar-btn.ghost:hover {
+  background: #e5e7eb;
+}
+textarea {
+  font-size: 0.95rem;
+}
+</style>
+{% endblock %}
