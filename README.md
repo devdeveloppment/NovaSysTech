@@ -6,9 +6,13 @@
 
 **NovaSysTech** est une plateforme web moderne et complète développée pour une entreprise de services technologiques basée à Lomé, Togo. Elle offre une vitrine professionnelle pour une large gamme de services allant de la maintenance informatique à l'intelligence artificielle.
 
+![Page d'accueil](screenshots/homepage.png)
+*Aperçu de la page d'accueil moderne et responsive.*
+
 ---
 
 ## 📑 Sommaire
+- [📸 Aperçus](#-aperçus)
 - [✨ Fonctionnalités](#-fonctionnalités)
 - [🛠️ Stack Technique](#️-stack-technique)
 - [🚀 Installation Rapide](#-installation-rapide)
@@ -16,6 +20,16 @@
 - [🖥️ Aperçu des Services](#️-aperçu-des-services)
 - [🔒 Administration](#-administration)
 - [📧 Contact](#-contact)
+
+---
+
+## 📸 Aperçus
+
+### Page d'accueil
+![Homepage](screenshots/homepage.png)
+
+### Dashboard Administrateur
+![Dashboard](screenshots/dashboard.png)
 
 ---
 
