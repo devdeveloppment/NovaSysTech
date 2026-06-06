@@ -291,20 +291,44 @@ h4 { font-size: 1.1rem; font-weight: 600; }
 }
 
 .nav-cta { margin-left: 12px; }
+.nav-cta-mobile { display: none; list-style: none; }
 
 .nav-toggle {
   display: none;
   flex-direction: column;
-  gap: 5px;
+  gap: 6px;
   cursor: pointer;
-  padding: 4px;
+  padding: 8px;
+  border: none;
+  background: none;
+  z-index: 1001;
 }
 .nav-toggle span {
   display: block;
-  width: 24px; height: 2px;
+  width: 26px; height: 3px;
   background: var(--blue);
-  border-radius: 2px;
-  transition: var(--transition);
+  border-radius: 3px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+.nav-toggle.active span:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+  background: var(--orange);
+}
+.nav-toggle.active span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.nav-toggle.active span:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+  background: var(--orange);
+}
+
+/* ── PROCESS GRID (Comment ça marche) ─────────────────────── */
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
 }
 
 /* ── HERO — ACCUEIL ─────────────────────────────────────────── */
@@ -1766,6 +1790,7 @@ select.form-control { cursor: pointer; background-image: url("data:image/svg+xml
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .faq-layout { grid-template-columns: 1fr; }
   .faq-sidebar { display: none; }
+  .process-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
@@ -1786,22 +1811,58 @@ select.form-control { cursor: pointer; background-image: url("data:image/svg+xml
   .contact-grid { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; gap: 32px; }
-  .nav-menu { display: none; }
+  .process-grid { grid-template-columns: 1fr; }
+
+  /* ── MOBILE NAV ── */
+  .nav-inner { height: 68px; }
+  .nav-cta { display: none; }
   .nav-toggle { display: flex; }
-  .nav-menu.open {
-    display: flex;
+  .nav-menu {
+    display: none;
     flex-direction: column;
     position: fixed;
-    top: 72px; left: 0; right: 0;
+    top: 68px; left: 0; right: 0; bottom: 0;
     background: var(--white);
-    border-bottom: 1px solid var(--gray-mid);
-    padding: 20px 24px;
+    padding: 24px 28px;
     gap: 4px;
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 10px 40px rgba(0,0,0,.12);
     z-index: 999;
+    overflow-y: auto;
+    animation: slideDown 0.3s ease;
   }
-  .nav-dropdown-menu { position: static; box-shadow: none; border: none; padding-left: 16px; opacity: 1; visibility: visible; transform: none; }
+  .nav-menu.open {
+    display: flex;
+  }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .nav-menu .nav-link {
+    font-size: 1.05rem;
+    padding: 14px 16px;
+    border-radius: var(--radius-md);
+  }
+  .nav-menu .nav-link:hover,
+  .nav-menu .nav-link.active {
+    background: var(--orange-light);
+  }
+  .nav-menu .nav-link.active::after { display: none; }
+  .nav-dropdown-menu {
+    position: static;
+    box-shadow: none;
+    border: none;
+    padding-left: 16px;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    min-width: unset;
+  }
+  /* CTA button inside mobile menu */
+  .nav-cta-mobile { display: block; }
   .devis-form-card { padding: 28px 20px; }
+
+  /* Logo smaller on mobile */
+  .logo-img { height: 44px; }
 }
 
 /* ── LOGO IMAGE ─────────────────────────────────────────────── */

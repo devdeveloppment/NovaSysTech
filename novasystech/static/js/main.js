@@ -18,15 +18,26 @@ document.addEventListener('DOMContentLoaded', function () {
   const toggle = document.querySelector('.nav-toggle');
   const menu = document.querySelector('.nav-menu');
   if (toggle && menu) {
-    toggle.addEventListener('click', () => {
-      const open = menu.classList.toggle('open');
-      toggle.querySelectorAll('span').forEach(s => s.style.background = open ? 'var(--orange)' : 'var(--blue)');
+    function closeMenu() {
+      menu.classList.remove('open');
+      toggle.classList.remove('active');
+    }
+    function toggleMenu() {
+      menu.classList.toggle('open');
+      toggle.classList.toggle('active');
+    }
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMenu();
+    });
+    // Close when a nav link is clicked
+    menu.querySelectorAll('.nav-link, .nav-dropdown-item').forEach(link => {
+      link.addEventListener('click', closeMenu);
     });
     // Close on outside click
     document.addEventListener('click', e => {
-      if (!toggle.contains(e.target) && !menu.contains(e.target)) {
-        menu.classList.remove('open');
-        toggle.querySelectorAll('span').forEach(s => s.style.background = 'var(--blue)');
+      if (menu.classList.contains('open') && !toggle.contains(e.target) && !menu.contains(e.target)) {
+        closeMenu();
       }
     });
   }

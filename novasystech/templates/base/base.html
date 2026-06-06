@@ -53,6 +53,7 @@
         <li><a href="{% url 'faq' %}" class="nav-link {% if page == 'faq' %}active{% endif %}">FAQ</a></li>
         <li><a href="{% url 'blog' %}" class="nav-link {% if page == 'blog' %}active{% endif %}">Blog</a></li>
         <li><a href="{% url 'contact' %}" class="nav-link {% if page == 'contact' %}active{% endif %}">Contact</a></li>
+        <li class="nav-cta-mobile"><a href="{% url 'devis' %}" class="btn btn-primary" style="width:100%;text-align:center;margin-top:12px;"><i class="fas fa-paper-plane"></i> Demander un devis</a></li>
       </ul>
 
       <a href="{% url 'devis' %}" class="btn btn-primary nav-cta">
