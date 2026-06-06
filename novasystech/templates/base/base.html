@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}NovaSysTech — IT Solution For All | Lomé, Togo{% endblock %}</title>
-  <meta name="description" content="{% block meta_description %}NovaSysTech (NST) — Leader IT au Togo. Maintenance informatique, CCTV, réseaux Wi-Fi, alarmes, Cloud & IA, formations certifiantes à Lomé.{% endblock %}">
-  <meta name="keywords" content="informatique Lomé, maintenance informatique Togo, CCTV Togo, réseaux wifi Togo, formation informatique Lomé, NovaSysTech">
+  <title>{% block title %}NovaSysTech — IT Solution For All{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}NovaSysTech (NST) — Leader IT. Maintenance informatique, CCTV, réseaux Wi-Fi, alarmes, Cloud & IA, formations certifiantes.{% endblock %}">
+  <meta name="keywords" content="informatique, maintenance informatique, CCTV, réseaux wifi, formation informatique, NovaSysTech">
   <meta name="author" content="NovaSysTech NST">
   <meta property="og:title" content="{% block og_title %}NovaSysTech — IT Solution For All{% endblock %}">
-  <meta property="og:description" content="{% block og_description %}Votre partenaire IT de confiance en Afrique de l'Ouest. Solutions IT complètes à Lomé, Togo.{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}Votre partenaire IT de confiance. Solutions IT complètes.{% endblock %}">
   <meta property="og:image" content="{% static 'images/logo.png' %}">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="fr_TG">
@@ -90,7 +90,7 @@
                style="height:62px;margin-bottom:16px;filter:brightness(0) invert(1);"
                onerror="this.style.display='none'">
         </a>
-        <p>Expertise IT, Cybersécurité et Transformation Digitale au service du développement en Afrique.<br><em>IT Solution For All</em></p>
+        <p>Expertise IT, Cybersécurité et Transformation Digitale au service du développement des entreprises.<br><em>IT Solution For All</em></p>
         <div class="social-links" style="margin-top:16px;">
           <a href="https://www.facebook.com/NovasystechNST" target="_blank" rel="noopener" class="social-link" title="Facebook"><i class="fab fa-facebook-f"></i></a>
           <a href="https://www.tiktok.com/@novasystech" target="_blank" rel="noopener" class="social-link" title="TikTok"><i class="fab fa-tiktok"></i></a>
@@ -132,8 +132,7 @@
         <div class="footer-contact-item">
           <span class="icon"><i class="fas fa-phone"></i></span>
           <div>
-            <a href="tel:+22879928181" style="color:rgba(255,255,255,.75);display:block;">{{ PHONE_1 }}</a>
-            <a href="tel:+22870307968" style="color:rgba(255,255,255,.75);display:block;">{{ PHONE_2 }}</a>
+            <a href="tel:{{ PHONE_1|cut:' ' }}" style="color:rgba(255,255,255,.75);display:block;">{{ PHONE_1 }}</a>
           </div>
         </div>
         <div class="footer-contact-item">
@@ -154,7 +153,7 @@
     </div>
 
     <div class="footer-bottom">
-      <span>© 2024 NovaSysTech (NST) — Excellence Technologique à Lomé, Togo. <a href="{{ SITE_URL }}" style="color:var(--orange);">Novasystech.net</a></span>
+      <span>© 2024 NovaSysTech (NST) — Excellence Technologique. <a href="{{ SITE_URL }}" style="color:var(--orange);">Novasystech.net</a></span>
       <a href="{% url 'mentions' %}" style="color:rgba(255,255,255,.4);">Mentions légales & Confidentialité</a>
     </div>
   </div>
@@ -170,6 +169,74 @@
 <button class="back-to-top" title="Retour en haut">
   <i class="fas fa-chevron-up"></i>
 </button>
+
+<!-- WELCOME FLOATER -->
+<div id="welcome-floater">
+  <img src="{% static 'images/logo.png' %}" class="logo" alt="NovaSysTech">
+  <div class="message">
+    <span style="color: var(--orange);">Bienvenue sur NovaSysTech</span><br>
+    L'Ancre de l'Innovation IT
+  </div>
+  <button class="close-btn" id="close-floater" title="Fermer"><i class="fas fa-times"></i></button>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  if (!localStorage.getItem("welcomeShown")) {
+    const floater = document.getElementById("welcome-floater");
+    floater.style.display = "flex";
+
+    const closeBtn = document.getElementById("close-floater");
+    closeBtn.addEventListener("click", function() {
+      floater.style.display = "none";
+      localStorage.setItem("welcomeShown", "true");
+    });
+
+    // DVD Bounce Logic
+    let x = Math.random() * (window.innerWidth - 300);
+    let y = Math.random() * (window.innerHeight - 100);
+    // Ensure it starts within bounds
+    x = Math.max(0, Math.min(x, window.innerWidth - 300));
+    y = Math.max(0, Math.min(y, window.innerHeight - 100));
+    
+    let dx = 1, dy = 1; // reduced speed
+    let isPaused = false;
+
+    floater.addEventListener("mouseenter", function() {
+      isPaused = true;
+    });
+    floater.addEventListener("mouseleave", function() {
+      isPaused = false;
+    });
+    
+    function animateFloater() {
+      if (floater.style.display === "none") return;
+      
+      if (!isPaused) {
+        const rect = floater.getBoundingClientRect();
+        const winW = window.innerWidth;
+        const winH = window.innerHeight;
+
+        // Bounce
+        if (x + rect.width >= winW) { dx = -Math.abs(dx); x = winW - rect.width; }
+        if (x <= 0) { dx = Math.abs(dx); x = 0; }
+        if (y + rect.height >= winH) { dy = -Math.abs(dy); y = winH - rect.height; }
+        if (y <= 0) { dy = Math.abs(dy); y = 0; }
+
+        x += dx;
+        y += dy;
+
+        floater.style.left = x + "px";
+        floater.style.top = y + "px";
+      }
+
+      requestAnimationFrame(animateFloater);
+    }
+    
+    requestAnimationFrame(animateFloater);
+  }
+});
+</script>
 
 <script src="{% static 'js/main.js' %}"></script>
 {% block extra_js %}{% endblock %}

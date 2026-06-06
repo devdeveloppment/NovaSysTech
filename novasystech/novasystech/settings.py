@@ -1,18 +1,27 @@
 import os
 from pathlib import Path
+import environ
+
+env = environ.Env(
+    DEBUG=(bool, False)
+)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = 'nst-novasystech-lome-togo-2024-secure-key-change-prod-xyz789abc'
-DEBUG = True
-ALLOWED_HOSTS = ['*']
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
+SECRET_KEY = env('SECRET_KEY', default='nst-novasystech-lome-togo-2024-secure-key-change-prod-xyz789abc')
+DEBUG = env('DEBUG', default=True)
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*', 'localhost', '127.0.0.1'])
 
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
+    'cloudinary_storage',
     'django.contrib.staticfiles',
+    'cloudinary',
     'django.contrib.sitemaps',
     'core', 'services', 'blog', 'portfolio', 'faq',
     'dashboard',
@@ -20,6 +29,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -43,7 +53,9 @@ TEMPLATES = [{
 }]
 
 WSGI_APPLICATION = 'novasystech.wsgi.application'
-DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3', 'NAME': BASE_DIR / 'db.sqlite3'}}
+DATABASES = {
+    'default': env.db('DATABASE_URL', default=f'sqlite:///{BASE_DIR / "db.sqlite3"}')
+}
 LANGUAGE_CODE = 'fr-fr'
 TIME_ZONE = 'Africa/Lome'
 USE_I18N = True
@@ -51,6 +63,18 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Cloudinary Configuration for Media files
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': env('CLOUDINARY_CLOUD_NAME', default=''),
+    'API_KEY': env('CLOUDINARY_API_KEY', default=''),
+    'API_SECRET': env('CLOUDINARY_API_SECRET', default=''),
+}
+
+if not DEBUG or env('CLOUDINARY_CLOUD_NAME', default=''):
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -70,11 +94,10 @@ EMAIL_SUBJECT_PREFIX = '[NovaSysTech] '
 NST_OWNER_EMAIL = 'contact@novasystechn.com'
 NST_EMAILS = [NST_OWNER_EMAIL]
 PHONE_1 = '+228 79 92 81 81'
-PHONE_2 = '+228 70 30 79 68'
 EMAIL_CONTACT = NST_OWNER_EMAIL
 EMAIL_SUPPORT = NST_OWNER_EMAIL
 WHATSAPP_NUMBER = '22879928181'
-ADRESSE = "Agoè Assiyéyé, derrière Station Cap Togo, Lomé, Togo"
+ADRESSE = "Agoè Assiyéyé, Lomé"
 MAPS_URL = 'https://maps.app.goo.gl/eKKpaoyeKmnqDYs26'
 SITE_URL = 'https://Novasystech.net'
 

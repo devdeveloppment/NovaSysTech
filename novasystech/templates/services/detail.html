@@ -1,6 +1,6 @@
 {% extends 'base/base.html' %}
 {% load static %}
-{% block title %}{{ service.meta_title|default:service.nom }} — NovaSysTech Togo{% endblock %}
+{% block title %}{{ service.meta_title|default:service.nom }} — NovaSysTech{% endblock %}
 {% block meta_description %}{{ service.meta_description|default:service.description_courte }}{% endblock %}
 
 {% block content %}
@@ -37,9 +37,7 @@
         <img src="{{ service.image_hero.url }}" alt="{{ service.nom }}"
              style="width:100%;height:380px;object-fit:cover;border-radius:var(--radius-xl);box-shadow:var(--shadow-lg);">
         {% else %}
-        <div style="width:100%;height:380px;background:linear-gradient(135deg,var(--blue),var(--blue-mid));border-radius:var(--radius-xl);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:5rem;color:white;">
-          {% if service.icone == 'wrench' %}🔧{% elif service.icone == 'video' %}📹{% elif service.icone == 'wifi' %}📡{% elif service.icone == 'shield' %}🔒{% elif service.icone == 'cloud' %}☁️{% elif service.icone == 'graduation-cap' %}🎓{% else %}⚙️{% endif %}
-        </div>
+        <img src="{% if service.icone == 'wrench' %}{% static 'images/formation-maintenance.jpg' %}{% elif service.icone == 'video' %}{% static 'images/formation-cctv.jpg' %}{% elif service.icone == 'wifi' %}{% static 'images/formation-mikrotik.jpg' %}{% elif service.icone == 'shield' %}{% static 'images/formation-cybersecurite.jpg' %}{% elif service.icone == 'cloud' %}{% static 'images/services-prestations.jpg' %}{% elif service.icone == 'graduation-cap' %}{% static 'images/formation-cybersecurite.jpg' %}{% else %}{% static 'images/services-prestations.jpg' %}{% endif %}" alt="{{ service.nom }}" style="width:100%;height:380px;object-fit:cover;border-radius:var(--radius-xl);box-shadow:var(--shadow-lg);">
         {% endif %}
       </div>
     </div>
@@ -137,8 +135,7 @@
           </a>
           <div style="margin-top:20px;padding-top:18px;border-top:1px solid rgba(255,255,255,.1);">
             <div style="font-size:.8rem;color:rgba(255,255,255,.6);margin-bottom:8px;">📞 Appel direct</div>
-            <a href="tel:+22879928181" style="color:var(--orange);font-weight:700;font-size:1rem;display:block;">{{ PHONE_1 }}</a>
-            <a href="tel:+22870307968" style="color:rgba(255,255,255,.7);font-size:.88rem;display:block;margin-top:4px;">{{ PHONE_2 }}</a>
+            <a href="tel:{{ PHONE_1|cut:' ' }}" style="color:var(--orange);font-weight:700;font-size:1rem;display:block;">{{ PHONE_1 }}</a>
           </div>
         </div>
 

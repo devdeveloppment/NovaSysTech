@@ -1,11 +1,12 @@
 {% extends 'base/base.html' %}
-{% block title %}Nos Expertises IT au Togo — NovaSysTech{% endblock %}
+{% load static %}
+{% block title %}Nos Expertises IT — NovaSysTech{% endblock %}
 
 {% block content %}
 <section class="page-hero">
   <div class="container page-hero-inner">
     <div class="section-tag">Services Hub</div>
-    <h1>Nos Expertises IT<br><span class="text-blue">au Togo.</span></h1>
+    <h1>Nos Expertises<br><span class="text-blue">IT.</span></h1>
     <p>Propulsez votre infrastructure vers l'avenir avec les solutions technologiques de pointe de NovaSysTech. De la sécurité physique à l'intelligence artificielle, nous bâtissons votre résilience numérique.</p>
   </div>
 </section>
@@ -39,7 +40,7 @@
         {% if service.image_hero %}
         <img src="{{ service.image_hero.url }}" alt="{{ service.nom }}">
         {% else %}
-        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80" alt="{{ service.nom }}">
+        <img src="{% static 'images/services-hub-banner.jpg' %}" alt="{{ service.nom }}">
         {% endif %}
       </div>
     </div>
@@ -102,7 +103,7 @@
   <div class="container">
     <div style="text-align:center;" data-aos>
       <h2>Un projet spécifique en tête ?</h2>
-      <p style="color:var(--gray-dark);max-width:480px;margin:16px auto 32px;">Nos consultants sont à votre disposition pour une étude personnalisée de vos besoins technologiques au Togo et dans la sous-région.</p>
+      <p style="color:var(--gray-dark);max-width:480px;margin:16px auto 32px;">Nos consultants sont à votre disposition pour une étude personnalisée de vos besoins technologiques.</p>
       <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
         <a href="{% url 'devis' %}" class="btn btn-primary btn-lg">Parler à un expert</a>
         <a href="#" class="btn btn-outline-dark btn-lg">Télécharger la brochure</a>
