@@ -1820,14 +1820,14 @@ select.form-control { cursor: pointer; background-image: url("data:image/svg+xml
   .nav-menu {
     display: none;
     flex-direction: column;
-    position: fixed;
-    top: 68px; left: 0; right: 0; bottom: 0;
+    position: absolute; /* absolute au lieu de fixed pour éviter de remplir l'écran */
+    top: 100%; left: 0; right: 0;
     background: var(--white);
-    padding: 24px 28px;
-    gap: 4px;
-    box-shadow: 0 10px 40px rgba(0,0,0,.12);
+    padding: 24px;
+    gap: 8px; /* Plus d'espace entre les liens */
+    box-shadow: var(--shadow-lg);
     z-index: 999;
-    overflow-y: auto;
+    border-radius: 0 0 16px 16px; /* Bords arrondis en bas */
     animation: slideDown 0.3s ease;
   }
   .nav-menu.open {
@@ -1838,9 +1838,10 @@ select.form-control { cursor: pointer; background-image: url("data:image/svg+xml
     to   { opacity: 1; transform: translateY(0); }
   }
   .nav-menu .nav-link {
-    font-size: 1.05rem;
-    padding: 14px 16px;
+    font-size: 1.1rem; /* Texte un peu plus grand */
+    padding: 12px 16px;
     border-radius: var(--radius-md);
+    display: block; /* S'assurer que le lien prend toute la largeur */
   }
   .nav-menu .nav-link:hover,
   .nav-menu .nav-link.active {
@@ -1851,11 +1852,16 @@ select.form-control { cursor: pointer; background-image: url("data:image/svg+xml
     position: static;
     box-shadow: none;
     border: none;
-    padding-left: 16px;
+    padding-left: 20px; /* Plus de décalage pour le sous-menu */
+    padding-top: 8px;
+    padding-bottom: 8px;
     opacity: 1;
     visibility: visible;
     transform: none;
     min-width: unset;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
   }
   /* CTA button inside mobile menu */
   .nav-cta-mobile { display: block; }
