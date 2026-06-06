@@ -1849,19 +1849,22 @@ select.form-control { cursor: pointer; background-image: url("data:image/svg+xml
   }
   .nav-menu .nav-link.active::after { display: none; }
   .nav-dropdown-menu {
+    display: none; /* Masqué par défaut sur mobile */
     position: static;
     box-shadow: none;
     border: none;
-    padding-left: 20px; /* Plus de décalage pour le sous-menu */
+    padding-left: 20px;
     padding-top: 8px;
     padding-bottom: 8px;
     opacity: 1;
     visibility: visible;
     transform: none;
     min-width: unset;
-    display: flex;
     flex-direction: column;
     gap: 6px;
+  }
+  .nav-dropdown-menu.open {
+    display: flex; /* Affiché quand on clique sur mobile */
   }
   /* CTA button inside mobile menu */
   .nav-cta-mobile { display: block; }
