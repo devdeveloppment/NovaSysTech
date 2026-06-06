@@ -2,8 +2,7 @@
 __pycache__/
 *.so
 .env
-db.sqlite3
-media/
+
 staticfiles/
 .vscode/
 .idea/
