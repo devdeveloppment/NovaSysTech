@@ -103,8 +103,8 @@ MAPS_URL = 'https://maps.app.goo.gl/eKKpaoyeKmnqDYs26'
 SITE_URL = 'https://Novasystech.net'
 
 # reCAPTCHA
-RECAPTCHA_PUBLIC_KEY = '6LdvzMAsAAAAANhoeZWY0zL4szRG9cRtsj36WTLv'
-RECAPTCHA_PRIVATE_KEY = '6LdvzMAsAAAAAFzlDGhuc6HUl_NEh901dtwpEdcI'
+RECAPTCHA_PUBLIC_KEY = '6LcZhBAtAAAAAC9LRISXI6ESLfbZRMoO313E7wCK'
+RECAPTCHA_PRIVATE_KEY = '6LcZhBAtAAAAABJ5JgJ0r-YcjfUC1U7jgpcntUdD'
 
 # LOGGING pour déboguer les erreurs d'email
 LOGGING = {
