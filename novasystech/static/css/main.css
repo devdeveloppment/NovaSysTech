@@ -1789,7 +1789,7 @@ select.form-control { cursor: pointer; background-image: url("data:image/svg+xml
 /* ── RESPONSIVE ─────────────────────────────────────────────── */
 @media (max-width: 1024px) {
   .hero-grid { grid-template-columns: 1fr; gap: 40px; }
-  .hero-image-wrap { display: none; }
+  /* Removed display: none for hero-image-wrap to show it on mobile/tablet */
   .about-grid { grid-template-columns: 1fr; gap: 40px; }
   .blog-layout { grid-template-columns: 1fr; }
   .blog-sidebar { display: none; }
@@ -1804,6 +1804,9 @@ select.form-control { cursor: pointer; background-image: url("data:image/svg+xml
 @media (max-width: 768px) {
   .section { padding: 64px 0; }
   .services-grid { grid-template-columns: 1fr; }
+  .hero-image-wrap { margin-top: 24px; }
+  .hero-image-wrap img { height: 320px; }
+  .hero-card-float { left: 16px; bottom: 16px; right: 16px; width: auto; max-width: calc(100% - 32px); }
   .service-hero-grid { grid-template-columns: 1fr; gap: 32px; }
   .service-hero-grid img { height: 280px !important; }
   .service-detail-layout { grid-template-columns: 1fr; gap: 40px; }
