@@ -14,7 +14,7 @@
       <span class="sep">/</span>
       <span>{{ service.nom }}</span>
     </div>
-    <div class="page-hero-inner" style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;">
+    <div class="page-hero-inner service-hero-grid">
       <div>
         <div class="section-tag">Service NST</div>
         <h1 style="margin-bottom:16px;">{{ service.nom }}</h1>
@@ -47,7 +47,7 @@
 <!-- CONTENT -->
 <section class="section">
   <div class="container">
-    <div style="display:grid;grid-template-columns:2fr 1fr;gap:64px;align-items:start;">
+    <div class="service-detail-layout">
       <div>
         {% if service.description_longue %}
         <div class="section-tag">Présentation</div>
@@ -68,7 +68,7 @@
 
         {% if service.get_avantages_list %}
         <h3 style="color:var(--blue);margin-bottom:20px;"><i class="fas fa-star" style="color:var(--orange);margin-right:8px;"></i>Pourquoi choisir NST ?</h3>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:32px;">
+        <div class="service-advantages-grid">
           {% for av in service.get_avantages_list %}
           <div style="background:var(--gray-light);border-radius:var(--radius-sm);padding:14px 18px;display:flex;gap:10px;align-items:flex-start;border-left:3px solid var(--orange);">
             <span style="color:var(--orange);font-weight:700;flex-shrink:0;">✓</span>

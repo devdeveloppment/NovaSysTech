@@ -1780,6 +1780,12 @@ select.form-control { cursor: pointer; background-image: url("data:image/svg+xml
 [data-aos="fade-right"] { transform: translateX(20px); }
 [data-aos="fade-right"].aos-animate { transform: translateX(0); }
 
+/* ── SERVICE DETAIL LAYOUTS ─────────────────────────────────── */
+.service-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+.service-detail-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 64px; align-items: start; }
+.service-advantages-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 32px; }
+.blog-header-grid { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 32px; flex-wrap: wrap; }
+
 /* ── RESPONSIVE ─────────────────────────────────────────────── */
 @media (max-width: 1024px) {
   .hero-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -1798,6 +1804,12 @@ select.form-control { cursor: pointer; background-image: url("data:image/svg+xml
 @media (max-width: 768px) {
   .section { padding: 64px 0; }
   .services-grid { grid-template-columns: 1fr; }
+  .service-hero-grid { grid-template-columns: 1fr; gap: 32px; }
+  .service-hero-grid img { height: 280px !important; }
+  .service-detail-layout { grid-template-columns: 1fr; gap: 40px; }
+  .blog-layout > div > img { height: 250px !important; margin-bottom: 24px !important; }
+  .service-advantages-grid { grid-template-columns: 1fr; }
+  .blog-header-grid { grid-template-columns: 1fr; align-items: start; gap: 16px; }
   .services-small-grid { grid-template-columns: 1fr; }
   .values-grid { grid-template-columns: 1fr 1fr; }
   .portfolio-grid { grid-template-columns: 1fr; }
