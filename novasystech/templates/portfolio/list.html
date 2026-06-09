@@ -22,31 +22,45 @@
 
 <section class="section">
   <div class="container">
-    <div class="portfolio-grid">
+    <div class="formations-grid">
       {% for projet in projets %}
-      <div class="portfolio-item item" data-cat="{{ projet.categorie }}" data-aos>
-        {% if projet.image %}
-        <img src="{{ projet.image.url }}" alt="{{ projet.titre }}" loading="lazy" decoding="async" style="width:100%;height:auto;">
-        {% else %}
-        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80" alt="{{ projet.titre }}" loading="lazy" decoding="async" style="width:100%;height:auto;">
-        {% endif %}
-        <div class="portfolio-overlay">
-          <span class="portfolio-badge">{{ projet.get_categorie_display }}</span>
-          <h3>{{ projet.titre }}</h3>
-          <p>{{ projet.description|truncatewords:15 }}</p>
+      <a href="{{ projet.get_absolute_url|default:'#' }}" class="formation-card item" data-cat="{{ projet.categorie }}" data-aos style="text-decoration:none; color:inherit; display:flex; flex-direction:column;">
+        <div class="formation-card-img-wrap">
+          {% if projet.image %}
+          <img src="{{ projet.image.url }}" alt="{{ projet.titre }}" class="formation-card-img">
+          {% else %}
+          <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80" alt="{{ projet.titre }}" class="formation-card-img">
+          {% endif %}
+          <span class="formation-card-badge">{{ projet.get_categorie_display }}</span>
         </div>
-      </div>
+        <div class="formation-card-body" style="flex:1; display:flex; flex-direction:column;">
+          <h4 style="margin-bottom:8px;font-family:var(--font-display);font-size:1.1rem;color:var(--blue);">{{ projet.titre }}</h4>
+          <p style="flex:1;color:var(--text);font-size:0.95rem;">{{ projet.description|truncatewords:20 }}</p>
+          <div style="margin-top:16px; font-size:.85rem; color:var(--orange); font-weight:600; display:flex; align-items:center;">
+            Voir les détails <i class="fas fa-arrow-right" style="margin-left:6px;"></i>
+          </div>
+        </div>
+      </a>
       {% empty %}
       <!-- DEMO PROJETS -->
       {% for img_url, titre, cat, desc in demo_projets %}
-      <div class="portfolio-item item" data-cat="{{ cat }}" data-aos>
-        <img src="{{ img_url }}" alt="{{ titre }}" loading="lazy" decoding="async" style="width:100%;height:auto;">
-        <div class="portfolio-overlay">
-          <span class="portfolio-badge">{{ cat|title }}</span>
-          <h3>{{ titre }}</h3>
-          <p>{{ desc }}</p>
+      <a href="#" class="formation-card item" data-cat="{{ cat }}" data-aos style="text-decoration:none; color:inherit; display:flex; flex-direction:column;">
+        <div class="formation-card-img-wrap">
+          {% if forloop.counter == 1 %}<img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80" alt="{{ titre }}" class="formation-card-img">
+          {% elif forloop.counter == 2 %}<img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?w=600&q=80" alt="{{ titre }}" class="formation-card-img">
+          {% elif forloop.counter == 3 %}<img src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=600&q=80" alt="{{ titre }}" class="formation-card-img">
+          {% elif forloop.counter == 4 %}<img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=600&q=80" alt="{{ titre }}" class="formation-card-img">
+          {% else %}<img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&q=80" alt="{{ titre }}" class="formation-card-img">{% endif %}
+          <span class="formation-card-badge">{{ cat|title }}</span>
         </div>
-      </div>
+        <div class="formation-card-body" style="flex:1; display:flex; flex-direction:column;">
+          <h4 style="margin-bottom:8px;font-family:var(--font-display);font-size:1.1rem;color:var(--blue);">{{ titre }}</h4>
+          <p style="flex:1;color:var(--text);font-size:0.95rem;">{{ desc }}</p>
+          <div style="margin-top:16px; font-size:.85rem; color:var(--orange); font-weight:600; display:flex; align-items:center;">
+            Voir les détails <i class="fas fa-arrow-right" style="margin-left:6px;"></i>
+          </div>
+        </div>
+      </a>
       {% endfor %}
       {% endfor %}
     </div>
