@@ -44,7 +44,7 @@
       {% empty %}
       <!-- DEMO PROJETS -->
       {% for img_url, titre, cat, desc in demo_projets %}
-      <a href="#" class="formation-card item" data-cat="{{ cat }}" data-aos style="text-decoration:none; color:inherit; display:flex; flex-direction:column;">
+      <a href="{% url 'portfolio_detail' titre|slugify %}" class="formation-card item" data-cat="{{ cat }}" data-aos style="text-decoration:none; color:inherit; display:flex; flex-direction:column;">
         <div class="formation-card-img-wrap">
           {% if forloop.counter == 1 %}<img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80" alt="{{ titre }}" class="formation-card-img">
           {% elif forloop.counter == 2 %}<img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?w=600&q=80" alt="{{ titre }}" class="formation-card-img">

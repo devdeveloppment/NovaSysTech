@@ -1,0 +1,48 @@
+{% extends 'base/base.html' %}
+{% block title %}{{ projet.titre }} — Réalisations NovaSysTech{% endblock %}
+
+{% block content %}
+<section class="page-hero" style="padding-bottom:40px;">
+  <div class="container page-hero-inner">
+    <div class="section-tag" style="background:rgba(232,119,34,.1);color:var(--orange-dark);">{{ projet.get_categorie_display }}</div>
+    <h1 style="max-width:700px; color:var(--blue);">{{ projet.titre }}</h1>
+    <div style="display:flex;align-items:center;gap:16px;margin-top:16px;flex-wrap:wrap;">
+      <span style="color:var(--gray-dark);font-size:.95rem;"><strong>Client :</strong> {{ projet.client }}</span>
+      {% if not is_demo and projet.date_realisation %}
+      <span style="color:var(--gray-dark);font-size:.95rem;">· <strong>Date :</strong> {{ projet.date_realisation|date:"F Y" }}</span>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="blog-layout">
+      <div>
+        {% if is_demo %}
+        <img src="{{ projet.image_url_fake }}" alt="{{ projet.titre }}" style="width:100%;height:450px;object-fit:cover;border-radius:var(--radius-lg);margin-bottom:40px;box-shadow:var(--shadow-md);">
+        {% elif projet.image %}
+        <img src="{{ projet.image.url }}" alt="{{ projet.titre }}" style="width:100%;height:450px;object-fit:cover;border-radius:var(--radius-lg);margin-bottom:40px;box-shadow:var(--shadow-md);">
+        {% endif %}
+        
+        <h3 style="margin-bottom:20px; color:var(--blue);">À propos du projet</h3>
+        <div style="font-size:1.05rem;line-height:1.9;color:var(--text-light);">
+          <p>{{ projet.description|linebreaksbr }}</p>
+          {% if is_demo %}
+          <br>
+          <p><em>NovaSysTech accompagne ses clients dans la réussite de leurs projets critiques avec une expertise pointue. Nous garantissons sécurité, performance et fiabilité pour chacune de nos interventions.</em></p>
+          {% endif %}
+        </div>
+      </div>
+      <div>
+        <div class="sidebar-widget" style="position:sticky;top:100px;">
+          <h4 style="color:var(--blue);">Prêt pour un projet similaire ?</h4>
+          <p style="color:var(--gray-dark); font-size:0.95rem; margin-bottom:20px;">Contactez nos experts pour évaluer vos besoins et concevoir une solution sur mesure pour votre entreprise.</p>
+          <a href="{% url 'devis' %}" class="btn btn-primary" style="width:100%;justify-content:center;margin-bottom:12px;">Parler à un expert</a>
+          <a href="{% url 'portfolio' %}" class="btn btn-outline-dark" style="width:100%;justify-content:center;">Retour aux réalisations</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
