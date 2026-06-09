@@ -12,7 +12,7 @@
         <h1 style="margin-bottom:20px;">L'Ancre de<br><span class="text-orange">l'informatique moderne.</span></h1>
         <p>Depuis notre fondation, NovaSysTech s'est imposée comme le partenaire privilégié des entreprises en quête d'excellence numérique. Nous ne nous contentons pas de fournir du code ; nous bâtissons des infrastructures résilientes et des solutions qui redéfinissent les standards du marché.</p>
         <div class="about-stats">
-          <div class="about-stat"><span class="num" data-counter="10" data-suffix="+">10+</span><span class="lbl">Années d'expertise</span></div>
+          <div class="about-stat"><span class="num" data-counter="5" data-suffix="+">5+</span><span class="lbl">Années d'expertise</span></div>
           <div class="about-stat"><span class="num" data-counter="150" data-suffix="+">150+</span><span class="lbl">Projets livrés</span></div>
         </div>
       </div>
@@ -78,14 +78,25 @@
         <p style="color:var(--gray-dark);max-width:360px;font-size:.9rem;">Nous collaborons avec les leaders mondiaux pour garantir des solutions certifiées et pérennes.</p>
       </div>
     </div>
-    <div style="display:flex;gap:24px;flex-wrap:wrap;margin-top:32px;" data-aos>
-      {% for p in "12345" %}
-      <div style="flex:1;min-width:140px;background:var(--white);border:1px solid var(--gray-mid);border-radius:var(--radius-md);padding:24px;display:flex;align-items:center;justify-content:center;min-height:80px;">
-        <div style="font-family:var(--font-display);font-weight:700;color:var(--gray-dark);font-size:.9rem;">
-          {% if forloop.counter == 1 %}Cisco{% elif forloop.counter == 2 %}Microsoft{% elif forloop.counter == 3 %}Hikvision{% elif forloop.counter == 4 %}MikroTik{% else %}AWS{% endif %}
-        </div>
+    <div style="display:flex;gap:24px;flex-wrap:wrap;margin-top:32px;justify-content:center;" data-aos>
+      <div style="flex:1;min-width:140px;max-width:180px;background:var(--white);border:1px solid var(--gray-mid);border-radius:var(--radius-md);padding:24px;display:flex;align-items:center;justify-content:center;min-height:100px;transition:var(--transition);" onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='var(--shadow-lg)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Cisco_logo_blue_2016.svg" alt="Cisco" style="max-height:40px;width:auto;object-fit:contain;">
       </div>
-      {% endfor %}
+      <div style="flex:1;min-width:140px;max-width:180px;background:var(--white);border:1px solid var(--gray-mid);border-radius:var(--radius-md);padding:24px;display:flex;align-items:center;justify-content:center;min-height:100px;transition:var(--transition);" onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='var(--shadow-lg)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg" alt="Microsoft" style="max-height:35px;width:auto;object-fit:contain;">
+      </div>
+      <div style="flex:1;min-width:140px;max-width:180px;background:var(--white);border:1px solid var(--gray-mid);border-radius:var(--radius-md);padding:24px;display:flex;align-items:center;justify-content:center;min-height:100px;transition:var(--transition);" onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='var(--shadow-lg)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/50/Oracle_logo.svg" alt="Oracle" style="max-height:25px;width:auto;object-fit:contain;">
+      </div>
+      <div style="flex:1;min-width:140px;max-width:180px;background:var(--white);border:1px solid var(--gray-mid);border-radius:var(--radius-md);padding:24px;display:flex;align-items:center;justify-content:center;min-height:100px;transition:var(--transition);" onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='var(--shadow-lg)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS" style="max-height:35px;width:auto;object-fit:contain;">
+      </div>
+      <div style="flex:1;min-width:140px;max-width:180px;background:var(--white);border:1px solid var(--gray-mid);border-radius:var(--radius-md);padding:24px;display:flex;align-items:center;justify-content:center;min-height:100px;transition:var(--transition);" onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='var(--shadow-lg)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" style="max-height:30px;width:auto;object-fit:contain;">
+      </div>
+      <div style="flex:1;min-width:140px;max-width:180px;background:var(--white);border:1px solid var(--gray-mid);border-radius:var(--radius-md);padding:24px;display:flex;align-items:center;justify-content:center;min-height:100px;transition:var(--transition);" onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='var(--shadow-lg)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Hikvision_logo.svg" alt="Hikvision" style="max-height:25px;width:auto;object-fit:contain;">
+      </div>
     </div>
   </div>
 </section>

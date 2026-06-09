@@ -43,9 +43,9 @@
           </div>
         </a>
         {% else %}
-        <a href="#" class="blog-une">
+        <a href="#" class="blog-une" style="text-decoration:none;color:inherit;">
           <div class="blog-une-image">
-            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80" alt="Cybersécurité">
+            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&q=80" alt="Cybersécurité">
             <span class="une-badge">À LA UNE</span>
           </div>
           <div class="blog-une-content">
@@ -57,35 +57,50 @@
         </a>
         {% endif %}
 
-        <div class="blog-grid" style="margin-top:24px;">
+        <div class="formations-grid" style="margin-top:24px;">
           {% for article in articles %}
-          <a href="{% url 'article_detail' article.slug %}" class="blog-card">
-            <div class="blog-card-image">
-              {% if article.image_hero %}<img src="{{ article.image_hero.url }}" alt="{{ article.titre }}">
-              {% else %}<img src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=400&q=80" alt="{{ article.titre }}">{% endif %}
-              {% if article.categorie %}<span class="blog-card-tag">{{ article.categorie.nom }}</span>{% endif %}
+          <a href="{% url 'article_detail' article.slug %}" class="formation-card" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;">
+            <div class="formation-card-img-wrap">
+              {% if article.image_hero %}<img src="{{ article.image_hero.url }}" alt="{{ article.titre }}" class="formation-card-img">
+              {% else %}<img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&q=80" alt="{{ article.titre }}" class="formation-card-img">{% endif %}
+              {% if article.categorie %}<span class="formation-card-badge">{{ article.categorie.nom }}</span>{% endif %}
             </div>
-            <div class="blog-card-body">
-              <div class="blog-meta" style="margin-bottom:8px;"><span class="blog-date">{{ article.date_publication|date:"d M Y" }}</span><span style="margin-left:8px;font-size:.78rem;color:var(--gray-dark);">· {{ article.temps_lecture }} min</span></div>
-              <h3>{{ article.titre }}</h3>
-              <p>{{ article.extrait|truncatewords:20 }}</p>
-              <div class="blog-author"><div class="author-avatar">{{ article.auteur|slice:":1" }}</div><span style="font-size:.8rem;">Par {{ article.auteur }}</span></div>
+            <div class="formation-card-body" style="flex:1;display:flex;flex-direction:column;">
+              <div class="formation-meta" style="margin-bottom:8px;opacity:.8;">
+                 <div class="formation-meta-item" style="display:inline-block;margin-right:12px;"><i class="fas fa-calendar" style="color:var(--orange);margin-right:4px;"></i> {{ article.date_publication|date:"d M Y" }}</div>
+                 <div class="formation-meta-item" style="display:inline-block;"><i class="fas fa-clock" style="color:var(--orange);margin-right:4px;"></i> {{ article.temps_lecture }} min</div>
+              </div>
+              <h4 style="margin-bottom:8px;font-family:var(--font-display);font-size:1.1rem;color:var(--blue);">{{ article.titre }}</h4>
+              <p style="flex:1;color:var(--text);font-size:0.95rem;">{{ article.extrait|truncatewords:20 }}</p>
+              <div style="display:flex;align-items:center;gap:10px;margin-top:16px;padding-top:16px;border-top:1px solid var(--gray-mid);">
+                <div class="author-avatar" style="width:30px;height:30px;border-radius:50%;background:var(--orange);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;">{{ article.auteur|slice:":1" }}</div>
+                <span style="font-size:.85rem;color:var(--gray-dark);font-weight:600;">Par {{ article.auteur }}</span>
+              </div>
             </div>
           </a>
           {% empty %}
           {% for t, d, cat, mins in demo_articles %}
-          <div class="blog-card">
-            <div class="blog-card-image">
-              <img src="{{ d }}" alt="{{ t }}">
-              <span class="blog-card-tag">{{ cat }}</span>
+          <a href="#" class="formation-card" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;">
+            <div class="formation-card-img-wrap">
+              {% if forloop.counter == 1 %}<img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80" alt="{{ t }}" class="formation-card-img">
+              {% elif forloop.counter == 2 %}<img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80" alt="{{ t }}" class="formation-card-img">
+              {% elif forloop.counter == 3 %}<img src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=600&q=80" alt="{{ t }}" class="formation-card-img">
+              {% else %}<img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&q=80" alt="{{ t }}" class="formation-card-img">{% endif %}
+              <span class="formation-card-badge">{{ cat }}</span>
             </div>
-            <div class="blog-card-body">
-              <div class="blog-meta" style="margin-bottom:8px;"><span class="blog-date">Mar 2024</span><span style="margin-left:8px;font-size:.78rem;color:var(--gray-dark);">· {{ mins }} min</span></div>
-              <h3>{{ t }}</h3>
-              <p>Découvrez nos dernières analyses et conseils pour votre transformation digitale.</p>
-              <div class="blog-author"><div class="author-avatar">N</div><span style="font-size:.8rem;">Par Équipe NST</span></div>
+            <div class="formation-card-body" style="flex:1;display:flex;flex-direction:column;">
+              <div class="formation-meta" style="margin-bottom:8px;opacity:.8;">
+                 <div class="formation-meta-item" style="display:inline-block;margin-right:12px;"><i class="fas fa-calendar" style="color:var(--orange);margin-right:4px;"></i> Mar 2024</div>
+                 <div class="formation-meta-item" style="display:inline-block;"><i class="fas fa-clock" style="color:var(--orange);margin-right:4px;"></i> {{ mins }} min</div>
+              </div>
+              <h4 style="margin-bottom:8px;font-family:var(--font-display);font-size:1.1rem;color:var(--blue);">{{ t }}</h4>
+              <p style="flex:1;color:var(--text);font-size:0.95rem;">Découvrez nos dernières analyses et conseils pour votre transformation digitale.</p>
+              <div style="display:flex;align-items:center;gap:10px;margin-top:16px;padding-top:16px;border-top:1px solid var(--gray-mid);">
+                <div class="author-avatar" style="width:30px;height:30px;border-radius:50%;background:var(--orange);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;">N</div>
+                <span style="font-size:.85rem;color:var(--gray-dark);font-weight:600;">Par Équipe NST</span>
+              </div>
             </div>
-          </div>
+          </a>
           {% endfor %}
           {% endfor %}
         </div>
