@@ -23,6 +23,22 @@
         <img src="{{ projet.image_url_fake }}" alt="{{ projet.titre }}" style="width:100%;height:450px;object-fit:cover;border-radius:var(--radius-lg);margin-bottom:40px;box-shadow:var(--shadow-md);">
         {% elif projet.image %}
         <img src="{{ projet.image.url }}" alt="{{ projet.titre }}" style="width:100%;height:450px;object-fit:cover;border-radius:var(--radius-lg);margin-bottom:40px;box-shadow:var(--shadow-md);">
+        {% else %}
+          {% if projet.categorie == 'cctv' %}
+          <img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=600&q=80" alt="{{ projet.titre }}" style="width:100%;height:450px;object-fit:cover;border-radius:var(--radius-lg);margin-bottom:40px;box-shadow:var(--shadow-md);">
+          {% elif projet.categorie == 'reseaux' %}
+          <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80" alt="{{ projet.titre }}" style="width:100%;height:450px;object-fit:cover;border-radius:var(--radius-lg);margin-bottom:40px;box-shadow:var(--shadow-md);">
+          {% elif projet.categorie == 'maintenance' %}
+          <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&q=80" alt="{{ projet.titre }}" style="width:100%;height:450px;object-fit:cover;border-radius:var(--radius-lg);margin-bottom:40px;box-shadow:var(--shadow-md);">
+          {% elif projet.categorie == 'cloud' %}
+          <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80" alt="{{ projet.titre }}" style="width:100%;height:450px;object-fit:cover;border-radius:var(--radius-lg);margin-bottom:40px;box-shadow:var(--shadow-md);">
+          {% elif projet.categorie == 'alarmes' %}
+          <img src="https://images.unsplash.com/photo-1582139329536-e7284fece509?w=600&q=80" alt="{{ projet.titre }}" style="width:100%;height:450px;object-fit:cover;border-radius:var(--radius-lg);margin-bottom:40px;box-shadow:var(--shadow-md);">
+          {% elif projet.categorie == 'formation' %}
+          <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&q=80" alt="{{ projet.titre }}" style="width:100%;height:450px;object-fit:cover;border-radius:var(--radius-lg);margin-bottom:40px;box-shadow:var(--shadow-md);">
+          {% else %}
+          <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80" alt="{{ projet.titre }}" style="width:100%;height:450px;object-fit:cover;border-radius:var(--radius-lg);margin-bottom:40px;box-shadow:var(--shadow-md);">
+          {% endif %}
         {% endif %}
         
         <h3 style="margin-bottom:20px; color:var(--blue);">À propos du projet</h3>
