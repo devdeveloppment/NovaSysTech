@@ -41,14 +41,15 @@
         <li class="nav-dropdown">
           <a href="{% url 'services' %}" class="nav-link {% if page == 'services' %}active{% endif %}">Services ▾</a>
           <ul class="nav-dropdown-menu">
-            <li><a href="{% url 'service_detail' 'maintenance-informatique' %}" class="nav-dropdown-item"><span class="icon">🔧</span>Maintenance informatique</a></li>
-            <li><a href="{% url 'service_detail' 'installation-cameras-securite' %}" class="nav-dropdown-item"><span class="icon">📹</span>Caméras de sécurité</a></li>
+            <li><a href="{% url 'service_detail' 'integration-solutions' %}" class="nav-dropdown-item"><span class="icon">⚙️</span>Intégration de solutions</a></li>
+            <li><a href="{% url 'service_detail' 'maintenance-support' %}" class="nav-dropdown-item"><span class="icon">🔧</span>Maintenance et support</a></li>
+            <li><a href="{% url 'service_detail' 'videosurveillance-cctv' %}" class="nav-dropdown-item"><span class="icon">📹</span>Vidéosurveillance (CCTV)</a></li>
             <li><a href="{% url 'service_detail' 'securite-incendie' %}" class="nav-dropdown-item"><span class="icon">🔥</span>Sécurité incendie</a></li>
-            <li><a href="{% url 'service_detail' 'reseaux-systemes' %}" class="nav-dropdown-item"><span class="icon">📡</span>Réseaux et systèmes</a></li>
-            <li><a href="{% url 'service_detail' 'services-cloud' %}" class="nav-dropdown-item"><span class="icon">☁️</span>Services Cloud</a></li>
-            <li><a href="{% url 'service_detail' 'controle-et-audit' %}" class="nav-dropdown-item"><span class="icon">📊</span>Contrôle et audit</a></li>
-            <li><a href="{% url 'service_detail' 'formation-certification' %}" class="nav-dropdown-item"><span class="icon">🎓</span>Formation et certification</a></li>
-            <li><a href="{% url 'service_detail' 'vente-equipements' %}" class="nav-dropdown-item"><span class="icon">💻</span>Vente d'équipements</a></li>
+            <li><a href="{% url 'service_detail' 'cablage-reseaux-telecoms' %}" class="nav-dropdown-item"><span class="icon">📡</span>Câblage et Réseaux</a></li>
+            <li><a href="{% url 'service_detail' 'cloud-services-manages' %}" class="nav-dropdown-item"><span class="icon">☁️</span>Cloud et Services managés</a></li>
+            <li><a href="{% url 'service_detail' 'audit-conseil-expertise' %}" class="nav-dropdown-item"><span class="icon">📊</span>Audit et Conseil IT</a></li>
+            <li><a href="{% url 'service_detail' 'formation-certifications' %}" class="nav-dropdown-item"><span class="icon">🎓</span>Formations</a></li>
+            <li><a href="{% url 'service_detail' 'vente-equipements-materiels' %}" class="nav-dropdown-item"><span class="icon">💻</span>Vente d'équipements</a></li>
           </ul>
         </li>
         <li><a href="{% url 'portfolio' %}" class="nav-link {% if page == 'portfolio' %}active{% endif %}">Portfolio</a></li>
@@ -105,14 +106,15 @@
       <div class="footer-col">
         <h4>Services</h4>
         <ul class="footer-links">
-          <li><a href="{% url 'service_detail' 'maintenance-informatique' %}">Maintenance informatique</a></li>
-          <li><a href="{% url 'service_detail' 'installation-cameras-securite' %}">Caméras de sécurité</a></li>
+          <li><a href="{% url 'service_detail' 'integration-solutions' %}">Intégration de solutions</a></li>
+          <li><a href="{% url 'service_detail' 'maintenance-support' %}">Maintenance et support</a></li>
+          <li><a href="{% url 'service_detail' 'videosurveillance-cctv' %}">Vidéosurveillance (CCTV)</a></li>
           <li><a href="{% url 'service_detail' 'securite-incendie' %}">Sécurité incendie</a></li>
-          <li><a href="{% url 'service_detail' 'reseaux-systemes' %}">Réseaux et systèmes</a></li>
-          <li><a href="{% url 'service_detail' 'services-cloud' %}">Services Cloud</a></li>
-          <li><a href="{% url 'service_detail' 'controle-et-audit' %}">Contrôle et audit</a></li>
-          <li><a href="{% url 'service_detail' 'formation-certification' %}">Formation et certification</a></li>
-          <li><a href="{% url 'service_detail' 'vente-equipements' %}">Vente d'équipements</a></li>
+          <li><a href="{% url 'service_detail' 'cablage-reseaux-telecoms' %}">Câblage et Réseaux</a></li>
+          <li><a href="{% url 'service_detail' 'cloud-services-manages' %}">Cloud et Services managés</a></li>
+          <li><a href="{% url 'service_detail' 'audit-conseil-expertise' %}">Audit et Conseil IT</a></li>
+          <li><a href="{% url 'service_detail' 'formation-certifications' %}">Formations</a></li>
+          <li><a href="{% url 'service_detail' 'vente-equipements-materiels' %}">Vente d'équipements</a></li>
         </ul>
       </div>
 
