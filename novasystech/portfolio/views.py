@@ -4,7 +4,6 @@ from django.utils.text import slugify
 from .models import Projet
 
 DEMO_PROJETS = [
-    ('https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=600&q=80', 'Système de Vidéosurveillance IP', 'cctv', 'Déploiement d\'un système de surveillance IP intelligent HD pour sécuriser les locaux professionnels.'),
     ('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80', 'Déploiement Infrastructure Fibre', 'reseaux', 'Refonte complète de l\'infrastructure fibre optique et wifi industriel pour des connexions très haut débit.'),
     ('https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&q=80', 'Contrat d\'Infogérance Globale', 'maintenance', 'Contrat de maintenance préventive et curative du parc informatique pour garantir la continuité des opérations.'),
     ('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80', 'Migration Data Center', 'cloud', 'Migration hybride vers le Cloud Azure et optimisation de l\'infrastructure des serveurs critiques.'),

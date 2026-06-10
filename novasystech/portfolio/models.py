@@ -3,11 +3,11 @@ from django.utils.text import slugify
 
 class Projet(models.Model):
     CATEGORIES = [
-        ('cctv', 'CCTV & Sécurité'),
+        ('cctv', 'Vidéosurveillance'),
         ('reseaux', 'Réseaux'),
         ('maintenance', 'Maintenance'),
         ('cloud', 'Cloud'),
-        ('alarmes', 'Alarmes'),
+        ('alarmes', 'Sécurité Incendie'),
         ('formation', 'Formation'),
     ]
     titre = models.CharField(max_length=300)

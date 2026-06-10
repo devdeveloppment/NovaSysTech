@@ -13,7 +13,7 @@
       <div class="portfolio-filters">
         <button class="filter-btn {% if cat_active == 'tous' %}active{% endif %}" data-filter="tous">Tous</button>
         {% for slug, label in categories %}
-        <button class="filter-btn {% if cat_active == slug %}active{% endif %}" data-filter="{{ slug }}">{{ label|cut:" & Sécurité"|cut:" & Contrôle" }}</button>
+        <button class="filter-btn {% if cat_active == slug %}active{% endif %}" data-filter="{{ slug }}">{{ label }}</button>
         {% endfor %}
       </div>
     </div>
