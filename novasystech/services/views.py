@@ -3,13 +3,6 @@ from .models import Service
 
 FORMATIONS = [
     {
-        'titre': 'Formation Cybersécurité',
-        'image': '/static/images/formation-cybersecurite.jpg',
-        'modules': ['Base de la cybersécurité', 'Sécurité des postes de travail', 'Sécurité du réseau', 'Détection des incidents', 'Test d\'intrusion (Pentest)'],
-        'debut': '20 Nov 2025', 'duree': '4 Semaines',
-        'inscription': '5 000 FCFA', 'tarif': '50 000 FCFA',
-    },
-    {
         'titre': 'Formation Déploiement Wi-Fi MikroTik',
         'image': '/static/images/formation-mikrotik.jpg',
         'modules': ['Normes et équipements MikroTik', 'Configurations de base', 'Création réseau Wi-Fi sécurisé', 'Portail captif', 'Gestion des utilisateurs', 'Contrôle bande passante'],

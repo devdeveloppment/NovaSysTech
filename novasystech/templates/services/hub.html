@@ -40,7 +40,7 @@
         {% if service.image_hero %}
         <img src="{{ service.image_hero.url }}" alt="{{ service.nom }}">
         {% else %}
-        <img src="{% static 'images/services-hub-banner.jpg' %}" alt="{{ service.nom }}">
+        <img src="{% if service.icone == 'wrench' %}https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=1200&q=80{% elif service.icone == 'video' %}https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=1200&q=80{% elif service.icone == 'shield' %}https://images.unsplash.com/photo-1582139329536-e7284fece509?w=1200&q=80{% elif service.icone == 'wifi' %}https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=80{% elif service.icone == 'cloud' %}https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&q=80{% elif service.icone == 'search' %}https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80{% elif service.icone == 'graduation-cap' %}https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1200&q=80{% elif service.icone == 'laptop' %}https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=1200&q=80{% else %}https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&q=80{% endif %}" alt="{{ service.nom }}">
         {% endif %}
       </div>
     </div>
@@ -53,11 +53,14 @@
       {% if not forloop.first %}
       <div class="service-small-card" data-aos data-aos-delay="{{ forloop.counter0 }}00">
         <div class="icon">
-          {% if service.icone == 'video' %}<i class="fas fa-video"></i>
+          {% if service.icone == 'wrench' %}<i class="fas fa-wrench"></i>
+          {% elif service.icone == 'video' %}<i class="fas fa-video"></i>
           {% elif service.icone == 'wifi' %}<i class="fas fa-wifi"></i>
-          {% elif service.icone == 'shield' %}<i class="fas fa-shield-alt"></i>
+          {% elif service.icone == 'shield' %}<i class="fas fa-fire-extinguisher"></i>
           {% elif service.icone == 'cloud' %}<i class="fas fa-cloud"></i>
+          {% elif service.icone == 'search' %}<i class="fas fa-search"></i>
           {% elif service.icone == 'graduation-cap' %}<i class="fas fa-graduation-cap"></i>
+          {% elif service.icone == 'laptop' %}<i class="fas fa-laptop"></i>
           {% else %}<i class="fas fa-cog"></i>{% endif %}
         </div>
         <h3>{{ service.nom }}</h3>
