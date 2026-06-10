@@ -169,3 +169,30 @@ LOGGING = {
         },
     },
 }
+
+# ==========================================
+# SECURITY SETTINGS (PRODUCTION)
+# ==========================================
+if not DEBUG:
+    # Redirige tout le trafic HTTP vers HTTPS
+    SECURE_SSL_REDIRECT = True
+    
+    # Empêche le navigateur de deviner le type de contenu (protection XSS)
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    
+    # Active la protection XSS du navigateur (ancien, mais recommandé)
+    SECURE_BROWSER_XSS_FILTER = True
+    
+    # Définit les cookies de session et CSRF en mode sécurisé (uniquement transmis via HTTPS)
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    
+    # HTTP Strict Transport Security (HSTS)
+    # Oblige les navigateurs à utiliser HTTPS pour le domaine pendant 1 an
+    SECURE_HSTS_SECONDS = 31536000 # 1 an
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+
+# Empêcher l'intégration du site dans une iframe (protection Clickjacking)
+# Déjà défini via XFrameOptionsMiddleware, on explicite ici l'option
+X_FRAME_OPTIONS = 'DENY'
