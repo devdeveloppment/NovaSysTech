@@ -46,12 +46,7 @@
       {% for img_url, titre, cat, desc in demo_projets %}
       <a href="{% url 'portfolio_detail' titre|slugify %}" class="formation-card item" data-cat="{{ cat }}" data-aos style="text-decoration:none; color:inherit; display:flex; flex-direction:column;">
         <div class="formation-card-img-wrap">
-          {% if forloop.counter == 1 %}<img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=600&q=80" alt="{{ titre }}" class="formation-card-img">
-          {% elif forloop.counter == 2 %}<img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80" alt="{{ titre }}" class="formation-card-img">
-          {% elif forloop.counter == 3 %}<img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80" alt="{{ titre }}" class="formation-card-img">
-          {% elif forloop.counter == 4 %}<img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&q=80" alt="{{ titre }}" class="formation-card-img">
-          {% elif forloop.counter == 5 %}<img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" alt="{{ titre }}" class="formation-card-img">
-          {% else %}<img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80" alt="{{ titre }}" class="formation-card-img">{% endif %}
+          <img src="{{ img_url }}" alt="{{ titre }}" class="formation-card-img">
           <span class="formation-card-badge">{{ cat|title }}</span>
         </div>
         <div class="formation-card-body" style="flex:1; display:flex; flex-direction:column;">

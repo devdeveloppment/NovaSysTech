@@ -4,12 +4,12 @@ from django.utils.text import slugify
 from .models import Projet
 
 DEMO_PROJETS = [
-    ('https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=600&q=80', 'Banque Régionale', 'cctv', 'Déploiement d\'un système de surveillance IP intelligent HD.'),
-    ('https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=600&q=80', 'Groupe Bancaire International', 'cloud', 'Migration hybride vers Azure et optimisation des infrastructures serveurs.'),
-    ('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80', 'Port Industriel d\'Afrique', 'reseaux', 'Refonte complète de l\'infrastructure fibre optique et wifi industriel.'),
-    ('https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&q=80', 'Opérateur Télécom National', 'maintenance', 'Contrat de maintenance préventive du parc informatique.'),
-    ('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80', 'Institution Gouvernementale', 'maintenance', 'Audit de sécurité pour la digitalisation des services publics.'),
-    ('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80', 'Campus Universitaire', 'reseaux', 'Extension backbone réseau pour connexions simultanées.'),
+    ('https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=600&q=80', 'Système de Vidéosurveillance IP', 'cctv', 'Déploiement d\'un système de surveillance IP intelligent HD pour sécuriser les locaux professionnels.'),
+    ('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80', 'Déploiement Infrastructure Fibre', 'reseaux', 'Refonte complète de l\'infrastructure fibre optique et wifi industriel pour des connexions très haut débit.'),
+    ('https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&q=80', 'Contrat d\'Infogérance Globale', 'maintenance', 'Contrat de maintenance préventive et curative du parc informatique pour garantir la continuité des opérations.'),
+    ('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80', 'Migration Data Center', 'cloud', 'Migration hybride vers le Cloud Azure et optimisation de l\'infrastructure des serveurs critiques.'),
+    ('https://images.unsplash.com/photo-1582139329536-e7284fece509?w=600&q=80', 'Système de Détection Incendie', 'alarmes', 'Installation de détecteurs de fumée et de centrales d\'alarme pour une prévention incendie de pointe.'),
+    ('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&q=80', 'Académie Technologique', 'formation', 'Programme de formation certifiant en administration système et sécurité informatique pour les collaborateurs.'),
 ]
 
 def portfolio_list(request):
