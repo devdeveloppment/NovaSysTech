@@ -19,6 +19,18 @@
       <div>
         {% if article.image_hero %}
         <img src="{{ article.image_hero.url }}" alt="{{ article.titre }}" style="width:100%;height:400px;object-fit:cover;border-radius:var(--radius-lg);margin-bottom:40px;">
+        {% else %}
+          {% if article.categorie.slug == 'intelligence-artificielle' %}
+          <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1200&q=80" alt="{{ article.titre }}" style="width:100%;height:400px;object-fit:cover;border-radius:var(--radius-lg);margin-bottom:40px;">
+          {% elif article.categorie.slug == 'cloud-infra' %}
+          <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&q=80" alt="{{ article.titre }}" style="width:100%;height:400px;object-fit:cover;border-radius:var(--radius-lg);margin-bottom:40px;">
+          {% elif article.categorie.slug == 'securite-it' %}
+          <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200&q=80" alt="{{ article.titre }}" style="width:100%;height:400px;object-fit:cover;border-radius:var(--radius-lg);margin-bottom:40px;">
+          {% elif article.categorie.slug == 'developpement-web' %}
+          <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200&q=80" alt="{{ article.titre }}" style="width:100%;height:400px;object-fit:cover;border-radius:var(--radius-lg);margin-bottom:40px;">
+          {% else %}
+          <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&q=80" alt="{{ article.titre }}" style="width:100%;height:400px;object-fit:cover;border-radius:var(--radius-lg);margin-bottom:40px;">
+          {% endif %}
         {% endif %}
         <div style="font-size:1.05rem;line-height:1.9;color:var(--text-light);">{{ article.contenu|linebreaks }}</div>
         {% if article.get_tags_list %}

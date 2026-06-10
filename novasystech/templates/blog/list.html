@@ -25,7 +25,19 @@
         <a href="{% url 'article_detail' une.slug %}" class="blog-une">
           <div class="blog-une-image">
             {% if une.image_hero %}<img src="{{ une.image_hero.url }}" alt="{{ une.titre }}">
-            {% else %}<img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80" alt="{{ une.titre }}">{% endif %}
+            {% else %}
+              {% if une.categorie.slug == 'intelligence-artificielle' %}
+              <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&q=80" alt="{{ une.titre }}">
+              {% elif une.categorie.slug == 'cloud-infra' %}
+              <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80" alt="{{ une.titre }}">
+              {% elif une.categorie.slug == 'securite-it' %}
+              <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80" alt="{{ une.titre }}">
+              {% elif une.categorie.slug == 'developpement-web' %}
+              <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&q=80" alt="{{ une.titre }}">
+              {% else %}
+              <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80" alt="{{ une.titre }}">
+              {% endif %}
+            {% endif %}
             <span class="une-badge">À LA UNE</span>
           </div>
           <div class="blog-une-content">
@@ -62,7 +74,19 @@
           <a href="{% url 'article_detail' article.slug %}" class="formation-card" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;">
             <div class="formation-card-img-wrap">
               {% if article.image_hero %}<img src="{{ article.image_hero.url }}" alt="{{ article.titre }}" class="formation-card-img">
-              {% else %}<img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&q=80" alt="{{ article.titre }}" class="formation-card-img">{% endif %}
+              {% else %}
+                {% if article.categorie.slug == 'intelligence-artificielle' %}
+                <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80" alt="{{ article.titre }}" class="formation-card-img">
+                {% elif article.categorie.slug == 'cloud-infra' %}
+                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80" alt="{{ article.titre }}" class="formation-card-img">
+                {% elif article.categorie.slug == 'securite-it' %}
+                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80" alt="{{ article.titre }}" class="formation-card-img">
+                {% elif article.categorie.slug == 'developpement-web' %}
+                <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&q=80" alt="{{ article.titre }}" class="formation-card-img">
+                {% else %}
+                <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&q=80" alt="{{ article.titre }}" class="formation-card-img">
+                {% endif %}
+              {% endif %}
               {% if article.categorie %}<span class="formation-card-badge">{{ article.categorie.nom }}</span>{% endif %}
             </div>
             <div class="formation-card-body" style="flex:1;display:flex;flex-direction:column;">
