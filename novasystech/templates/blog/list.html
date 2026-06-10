@@ -45,13 +45,13 @@
         {% else %}
         <a href="#" class="blog-une" style="text-decoration:none;color:inherit;">
           <div class="blog-une-image">
-            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&q=80" alt="Cybersécurité">
+            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80" alt="Transformation Digitale">
             <span class="une-badge">À LA UNE</span>
           </div>
           <div class="blog-une-content">
-            <div class="blog-meta"><span class="blog-cat">Sécurité</span><span class="blog-date">15 Mars 2024</span></div>
-            <h2>L'importance de la cybersécurité : Enjeux et Solutions</h2>
-            <p>Face à la numérisation croissante des services publics et privés, la protection des données devient un pilier stratégique incontournable pour les entreprises...</p>
+            <div class="blog-meta"><span class="blog-cat">Transformation Digitale</span><span class="blog-date">15 Mars 2024</span></div>
+            <h2>L'importance de la transformation digitale pour les entreprises</h2>
+            <p>Face à la numérisation croissante des services publics et privés, la transformation digitale devient un pilier stratégique incontournable pour les entreprises...</p>
             <div class="blog-author"><div class="author-avatar">K</div><span>Par Koffi Danklou</span><span style="margin-left:8px;color:var(--gray-dark);">· 8 min lecture</span></div>
           </div>
         </a>
@@ -134,10 +134,10 @@
             {% for cat in categories %}
             <a href="?categorie={{ cat.slug }}" class="cat-item">{{ cat.nom }}<span class="cat-count">{{ cat.article_set.count }}</span></a>
             {% empty %}
-            <div class="cat-item">Cybersécurité<span class="cat-count">12</span></div>
-            <div class="cat-item">Intelligence Artificielle<span class="cat-count">8</span></div>
-            <div class="cat-item">Cloud & Infra<span class="cat-count">15</span></div>
-            <div class="cat-item">Développement Web<span class="cat-count">22</span></div>
+            <div class="cat-item">Réseaux & Systèmes<span class="cat-count">12</span></div>
+            <div class="cat-item">Cloud & Infrastructure<span class="cat-count">15</span></div>
+            <div class="cat-item">Transformation Digitale<span class="cat-count">8</span></div>
+            <div class="cat-item">Conseils IT<span class="cat-count">10</span></div>
             {% endfor %}
           </div>
         </div>

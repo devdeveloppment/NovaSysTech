@@ -31,7 +31,7 @@
       </div>
       <div>
         {% if service.slug == 'formation-certification' %}
-        <img src="{% static 'images/formation-cybersecurite.jpg' %}" alt="{{ service.nom }}"
+        <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1200&q=80" alt="{{ service.nom }}"
              style="width:100%;height:380px;object-fit:cover;border-radius:var(--radius-xl);box-shadow:var(--shadow-lg);">
         {% elif service.image_hero %}
         <img src="{{ service.image_hero.url }}" alt="{{ service.nom }}"

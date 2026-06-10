@@ -4,11 +4,13 @@ from django.utils.text import slugify
 class Service(models.Model):
     ICONES = [
         ('wrench', 'Maintenance'),
-        ('video', 'CCTV'),
-        ('wifi', 'Réseaux'),
-        ('shield', 'Alarmes'),
-        ('cloud', 'Cloud & IA'),
+        ('video', 'Caméras de sécurité'),
+        ('shield', 'Sécurité incendie'),
+        ('wifi', 'Réseaux & Systèmes'),
+        ('cloud', 'Services Cloud'),
+        ('search', 'Contrôle & Audit'),
         ('graduation-cap', 'Formation'),
+        ('laptop', 'Vente équipements'),
     ]
 
     nom = models.CharField(max_length=200)
